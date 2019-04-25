@@ -20,7 +20,6 @@ export const fakeAuth = {
   },
   tokenExist(){
     let token = this.getToken()
-    console.log(token)
     if(!token) return false
     if(token.length===0) return false
     return true
@@ -50,7 +49,7 @@ export const AuthButton = withRouter(({ history }) => (
 const PrivateRoute = ({ component: Component, ...rest }) => (
  
   <Route {...rest} render={(props) => (
-   
+  
     fakeAuth.tokenExist() === true
     ? <Component {...props} />
     : <Redirect to={{

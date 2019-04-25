@@ -20,7 +20,7 @@ class TablesComponent extends Component {
 
   handleAddUserClick(e){
     e.preventDefault()
-    this.props.history.push("/users/add");
+    this.props.history.push("/adminpanel/users/add");
   }
 
   componentDidMount() {
@@ -31,7 +31,7 @@ class TablesComponent extends Component {
   handleEditClick(id){
     
     //e.preventDefault()
-    this.props.history.push(`/users/edit/${id}`);
+    this.props.history.push(`/adminpanel/users/edit/${id}`);
 
   }
   handleDeleteClick(e){

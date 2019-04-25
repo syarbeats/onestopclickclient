@@ -96,7 +96,7 @@ class FormsComponent extends Component {
    
     if (successSave === true) {
       dispatch(userSaveOff())
-      return <Redirect to="/users" />
+      return <Redirect to="/adminpanel/users" />
     }
 
     const myusername = "helllo"

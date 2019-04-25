@@ -63,7 +63,7 @@ class DefaultLayoutComponent extends Component {
     <ul className="nav">
       {/* <li className="nav-title">Nav Title</li> */}
       <li className="nav-item">
-      <NavLink to='/users' className="nav-link">
+      <NavLink to='/adminpanel/users' className="nav-link">
        <i className="nav-icon cui-speedometer"></i> Users
        </NavLink>
       

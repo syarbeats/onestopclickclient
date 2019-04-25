@@ -15,6 +15,7 @@ const Login = React.lazy(() => import('./views/Pages/Login'));
 const Register = React.lazy(() => import('./views/Pages/Register'));
 const Page404 = React.lazy(() => import('./views/Pages/Page404'));
 const Page500 = React.lazy(() => import('./views/Pages/Page500'));
+const Home = React.lazy(() => import('./containers/home/Home'));
 
 class App2 extends Component {
 
@@ -25,13 +26,15 @@ class App2 extends Component {
       <HashRouter>
           <React.Suspense fallback={loading()}>
             <Switch>
+              <Route exact path="/" name="Home" render={props => <Home {...props}/>} />
               <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
               <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
               <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
               {/* <Route path="/" name="Home" render={props => <DefaultLayout {...props}/>} /> */}
-          
-               <PrivateRouteComponent name="Home" path="/" component={props=><DefaultLayout {...props}/>} />} />
+              {/* <Route path="/adminpanel" name="Home" render={props => <DefaultLayout {...props}/>} /> */}
+               {/* <PrivateRouteComponent name="Adminpanel" path="/adminpanel" render={props => <DefaultLayout {...props}/>} /> */}
+               <PrivateRouteComponent name="Adminpanel" path="/adminpanel" component={props=><DefaultLayout {...props}/>} />} />
             </Switch>
           </React.Suspense>
       </HashRouter>
