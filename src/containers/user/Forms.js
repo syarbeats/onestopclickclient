@@ -82,9 +82,11 @@ class FormsComponent extends Component {
     if(prevProps.user){
       this.setState({
         formControls:{
+          firstname:{value:prevProps.user.firstname},
+          lastname:{value:prevProps.user.lastname},
           username:{value:prevProps.user.username},
           email:{value:prevProps.user.email},
-          password:{value:prevProps.user.password}
+          password:{value:prevProps.user.password},
         }
       })
     }
@@ -149,7 +151,25 @@ class FormsComponent extends Component {
                       {/* <FormText className="help-block">Please enter a complex password</FormText> */}
                     </Col>
                   </FormGroup>
-                  
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Firstname</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="text-input" name="firstname" placeholder="Text" onChange={this.handleChange}   />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Lastname</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="text-input" name="lastname" placeholder="Text" onChange={this.handleChange}  />
+                    </Col>
+                  </FormGroup>
+
                 </Form>
               </CardBody>
               <CardFooter>
