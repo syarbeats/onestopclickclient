@@ -83,10 +83,20 @@ export function CRUDRead(token,pathUrl,name) {
 export function CRUDSave(token,params,pathUrl,name) {
 
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
- 
+    const bodyFormdata = new FormData()
+    const keys = Object.keys(params)    
+    keys.map((key)=>{
+        bodyFormdata.set(key,params[key])
+    })
     return dispatch => {
  
-        return axios.post(`${API_URL}${pathUrl}`,params)
+       // return axios.post(`${API_URL}${pathUrl}`,params)
+       return axios({
+        method: 'post',
+        url: `${API_URL}${pathUrl}`,
+        data: bodyFormdata,
+        config: { headers: {'Content-Type': 'multipart/form-data' }}
+        })
         .then(response => response.data)
         .then((json) =>dispatch(actionSaveReceive(name,json)))
     }

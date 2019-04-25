@@ -9,7 +9,7 @@ export function userFetch(token){
 
 export function userSave(token,user) {
    
-    return CRUDSave(token,user,'/api/v1/users','USER')
+    return CRUDSave(token,user,'/api/v1/users/register','USER')
 }
 
 export function userSaveOff(){
