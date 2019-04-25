@@ -64,10 +64,14 @@ class TablesComponent extends Component {
               <Table hover bordered striped responsive size="sm">
                   <thead>
                   <tr>
-                    <th>Username</th>
-                    <th>Date registered</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>ID</th>
+                    <th>USERNAME</th>
+                    <th>FIRSTNAME</th>
+                    <th>LASTTNAME</th>
+                    <th>EMAIL</th>
+                    <th>ROLE</th>
+                    <th>STATUS</th>
+                    <th></th>
                     <th></th>
                   </tr>
                   </thead>
@@ -75,13 +79,15 @@ class TablesComponent extends Component {
               
                   { users.map((user,i)=>(
                       <tr key={i}>
-                      <td>{user.username}</td>
-                      <td>-</td>
-                      <td>{user.email}</td>
-                      <td>
-                          -
-                      </td>
-                      <td><Button onClick={e=>this.handleEditClick(user.id)}>Edit</Button><Button onClick={this.handleDeleteClick}>Delete</Button></td>
+                        <td>{user.id}</td>
+                        <td>{user.username}</td>
+                        <td>{user.firstName}</td>
+                        <td>{user.lastName}</td>
+                        <td>{user.email}</td>
+                        <td>{user.role}</td>
+                        <td>{user.enabled}</td>
+                        <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(user.id)}>Edit</Button></td>
+                        <td><Button className="btn btn-info" onClick={this.handleDeleteClick}>Delete</Button></td>
                     </tr>
                   ))}
                   </tbody>

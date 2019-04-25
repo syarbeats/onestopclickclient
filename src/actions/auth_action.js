@@ -36,13 +36,16 @@ export function authLogout(){
 
 
 export function authLoginFetch(username,password) {
+
+    let formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
  
     return dispatch => {
         dispatch(authFetching())
-        return axios.post(`${API_URL}/auth/signin`,{
-            username: username,
-            password: password,
-        })
+
+
+        return axios.post(`${API_URL}/auth/signin`,formData)
         .then(response => response.data)
         .then((json) =>  dispatch(authReceive(username,json)))
         .catch( error => {
