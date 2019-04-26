@@ -8,6 +8,7 @@ const Dashboard = React.lazy(() => import('./views/Dashboard'));
 
 const Users = React.lazy(() => import('./containers/user/Tables'));
 const UserForm = React.lazy(() => import('./containers/user/Forms'));
+const UserEdit = React.lazy(() => import('./containers/user/UserEdit'));
 
 const ProductTable = React.lazy(() => import('./containers/product/Tables'));
 const ProductForm = React.lazy(() => import('./containers/product/Forms'));
@@ -28,7 +29,7 @@ const routes = [
  // { path: '/users/:id', exact: true, name: 'User Details', component: User },
  { path: ADMIN_PATH+'/users', exact: true,  name: 'Users', component: Users },
  { path: ADMIN_PATH+'/users/add', exact: true,  name: 'UsersForm', component: UserForm },
- { path: ADMIN_PATH+'/users/edit/:id', exact: true,  name: 'UsersForm', component: UserForm },
+ { path: ADMIN_PATH+'/users/edit/:id', exact: true,  name: 'UsersForm', component: UserEdit },
  { path: ADMIN_PATH+'/product', exact: true,  name: 'Products', component: ProductTable },
  { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
  { path: ADMIN_PATH+'/product/edit/:id', exact: true,  name: 'Edit Product', component: ProductForm },
