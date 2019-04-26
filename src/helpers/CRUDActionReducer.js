@@ -141,6 +141,27 @@ export function CRUDSave(token,params,pathUrl,name) {
 export function CRUDEdit(token,params,pathUrl,name) {
 
   axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+
+
+  return dispatch => {
+
+    //console.log("Payload: "+ JSON.stringify(payload));
+    // return axios.post(`${API_URL}${pathUrl}`,params)
+    return axios({
+      method: 'patch',
+      url: `${API_URL}${pathUrl}`,
+      data: params,
+      config: { headers: {'Content-Type': 'application/json' }}
+    })
+      .then(response => response.data)
+      .then((json) =>dispatch(actionEditReceive(name,json)))
+  }
+
+}
+
+/*export function CRUDEdit(token,params,pathUrl,name) {
+
+  axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
   const bodyFormdata = new FormData()
   const keys = Object.keys(params)
   keys.map((key)=>{
@@ -153,7 +174,7 @@ export function CRUDEdit(token,params,pathUrl,name) {
     password: bodyFormdata.get("password"),
     email: bodyFormdata.get("email"),
     firstName: bodyFormdata.get("firstName"),
-    lastName: bodyFormdata.get("lastName"),
+    lastName: bodyFormdata.get("lastName")
   }
 
   return dispatch => {
@@ -163,14 +184,14 @@ export function CRUDEdit(token,params,pathUrl,name) {
     return axios({
       method: 'patch',
       url: `${API_URL}${pathUrl}`,
-      data: JSON.stringify(payload),       
+      data: JSON.stringify(payload),
       config: { headers: {'Content-Type': 'application/json' }}
     })
-      .then(response => response.data)
+      .then(response => response.data.user)
       .then((json) =>dispatch(actionEditReceive(name,json)))
   }
 
-}
+}*/
 
 export function CRUDSaveJson(token,params,pathUrl,name) {
 

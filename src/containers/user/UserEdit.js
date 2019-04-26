@@ -95,18 +95,13 @@ class UserEdit extends Component {
   }
 
   render() {
-    const {successEdit,dispatch,user} = this.props
-   
-    if (successEdit === true) {
+    const {successSave,dispatch,user} = this.props
+
+    if (successSave === true) {
       dispatch(userSaveOff())
       return <Redirect to="/adminpanel/users" />
     }
 
-    const myusername = "helllo"
-   
-
-
- 
     return (
       <div className="animated fadeIn">
         
