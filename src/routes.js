@@ -12,6 +12,8 @@ const UserForm = React.lazy(() => import('./containers/user/Forms'));
 const ProductTable = React.lazy(() => import('./containers/product/Tables'));
 const ProductForm = React.lazy(() => import('./containers/product/Forms'));
 
+const PermissionTable = React.lazy(() => import('./containers/permission/Tables'));
+const PermissionForm = React.lazy(() => import('./containers/permission/Forms'));
 
 
 const routes = [
@@ -27,6 +29,10 @@ const routes = [
  { path: ADMIN_PATH+'/product', exact: true,  name: 'Products', component: ProductTable },
  { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
  { path: ADMIN_PATH+'/product/edit/:id', exact: true,  name: 'Edit Product', component: ProductForm },
+ { path: ADMIN_PATH+'/permission', exact: true,  name: 'Permissions', component: PermissionTable },
+ { path: ADMIN_PATH+'/permission/add', exact: true,  name: 'Add Permission', component: PermissionForm },
+ { path: ADMIN_PATH+'/permission/edit/:id', exact: true,  name: 'Edit Permission', component: PermissionForm },
+
 ];
 
 export default routes;
