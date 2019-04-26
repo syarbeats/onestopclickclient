@@ -3,6 +3,7 @@ import { Redirect, Route, Switch,NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { authLogout } from '../../actions/auth_action';
 import { connect } from 'react-redux';
+import {ADMIN_PATH} from '../../config/Config'
 
 import {
   AppAside,
@@ -45,6 +46,7 @@ class DefaultLayoutComponent extends Component {
   }
 
   render() {
+ 
     return (
       <div className="app">
         <AppHeader fixed>
@@ -61,36 +63,20 @@ class DefaultLayoutComponent extends Component {
             <div className="sidebar">
   <nav className="sidebar-nav">
     <ul className="nav">
-      {/* <li className="nav-title">Nav Title</li> */}
+     
       <li className="nav-item">
-      <NavLink to='/adminpanel/users' className="nav-link">
+      <NavLink to={ADMIN_PATH+"/users"} className="nav-link">
        <i className="nav-icon cui-speedometer"></i> Users
        </NavLink>
       
       </li>
-      {/* <li className="nav-item">
-        <a className="nav-link" href="#">
-          <i className="nav-icon cui-speedometer"></i> With badge
-          <span className="badge badge-primary">NEW</span>
-        </a>
-      </li> */}
-      {/* <li class="nav-item nav-dropdown">
-        <a class="nav-link nav-dropdown-toggle" href="#">
-          <i class="nav-icon cui-puzzle"></i> Nav dropdown
-        </a>
-        <ul class="nav-dropdown-items">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="nav-icon cui-puzzle"></i> Nav dropdown item
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="nav-icon cui-puzzle"></i> Nav dropdown item
-            </a>
-          </li>
-        </ul>
-      </li> */}
+      <li className="nav-item">
+      <NavLink to={ADMIN_PATH+'/product'} className="nav-link">
+       <i className="nav-icon cui-speedometer"></i> Product
+       </NavLink>
+      
+      </li>
+     
       
     </ul>
   </nav>

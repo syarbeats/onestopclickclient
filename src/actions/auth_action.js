@@ -40,6 +40,9 @@ export function authLoginFetch(username,password) {
     let formData = new FormData();
     formData.append('username', username);
     formData.append('password', password);
+
+    
+    axios.defaults.headers.common = {}
  
     return dispatch => {
         dispatch(authFetching())

@@ -26,6 +26,18 @@ export function actionSwitcher(name,state,action){
             ...state,
             record:action.data
         }
+    }else if(action.type===`${name}_DELETE_RECEIVE`){
+        return {
+            ...state,
+            sucessDelete:true,
+            afterRequestDelete:true
+        }
+    }else if(action.type===`${name}_DELETE_OFF`){
+        return {
+            ...state,
+            sucessDelete:false,
+            afterRequestDelete:false
+        }
     }
 
 
@@ -54,6 +66,12 @@ function actionOffSave(name){
     }
 }
 
+function actionOffDelete(name){
+    return {
+        type:`${name}_DELETE_OFF`
+    }
+}
+
 function actionReadOneReceive(name,json){
     return {
         type:`${name}_READONE_RECEIVE`,
@@ -61,10 +79,20 @@ function actionReadOneReceive(name,json){
     }
 }
 
+function actionDeleteReceive(name){
+    return {
+        type:`${name}_DELETE_RECEIVE`
+    }
+}
+
 
 
 export function CRUDOffSave(name){
     return actionOffSave(name)
+}
+
+export function CRUDOffDelete(name){
+    return actionOffDelete(name)
 }
 
 export function CRUDRead(token,pathUrl,name) {
@@ -103,6 +131,18 @@ export function CRUDSave(token,params,pathUrl,name) {
     
 }
 
+export function CRUDSaveJson(token,params,pathUrl,name) {
+
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+    return dispatch => {
+        return axios.post(`${API_URL}${pathUrl}`,params)
+        .then(response => response.data)
+        .then((json) =>dispatch(actionSaveReceive(name,json))
+        )
+    }
+    
+}
+
 
 
 
@@ -119,6 +159,21 @@ export function CRUDReadOne(token,pathUrl,name) {
          
         }
         
+        )
+    }
+    
+}
+
+export function CRUDDelete(token,pathUrl,name) {
+
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+ 
+    return dispatch => {
+ 
+        return axios.delete(`${API_URL}${pathUrl}`)
+        .then(response => response.data)
+       // .then((json) =>dispatch(CRUDRead(token,pathUrl,name)) // refresh table
+       .then((json) =>dispatch(actionDeleteReceive(name)) // refresh table
         )
     }
     
