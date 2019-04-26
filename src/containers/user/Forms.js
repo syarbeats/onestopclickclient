@@ -34,7 +34,7 @@ class FormsComponent extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      formControls:Tools.generateFields(['username','email','password'])
+      formControls:Tools.generateFields(['username','email','password', 'firstName', 'lastName'])
     };
   }
 
@@ -82,11 +82,11 @@ class FormsComponent extends Component {
     if(prevProps.user){
       this.setState({
         formControls:{
-          firstname:{value:prevProps.user.firstname},
-          lastname:{value:prevProps.user.lastname},
           username:{value:prevProps.user.username},
           email:{value:prevProps.user.email},
           password:{value:prevProps.user.password},
+          firstName:{value:prevProps.user.firstName},
+          lastName:{value:prevProps.user.lastName},
         }
       })
     }
@@ -157,7 +157,7 @@ class FormsComponent extends Component {
                       <Label htmlFor="text-input">Firstname</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="firstname" placeholder="Text" onChange={this.handleChange}   />
+                      <Input type="text" id="text-input" name="firstname" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.firstName.value} />
                     </Col>
                   </FormGroup>
 
@@ -166,7 +166,7 @@ class FormsComponent extends Component {
                       <Label htmlFor="text-input">Lastname</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="lastname" placeholder="Text" onChange={this.handleChange}  />
+                      <Input type="text" id="text-input" name="lastname" placeholder="Text" onChange={this.handleChange} value={this.state.formControls.lastName.value} />
                     </Col>
                   </FormGroup>
 
