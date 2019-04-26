@@ -1,4 +1,4 @@
-import {CRUDRead, CRUDSave, CRUDEdit, CRUDOffSave,CRUDReadOne} from '../helpers/CRUDActionReducer'
+import {CRUDRead, CRUDSave, CRUDEdit, CRUDOffSave, CRUDReadOne, CRUDOffEdit} from '../helpers/CRUDActionReducer'
 
 
 
@@ -19,6 +19,10 @@ export function userEdit(token,user) {
 
 export function userSaveOff(){
     return CRUDOffSave('USER')
+}
+
+export function userEditOff(){
+  return CRUDOffEdit('USER')
 }
 
 export function userReadOne(token,id){

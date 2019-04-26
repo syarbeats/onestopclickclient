@@ -39,6 +39,21 @@ export function actionSwitcher(name,state,action){
             afterRequestDelete:false
         }
     }
+    else if(action.type===`${name}_EDIT_RECEIVE`){
+      return {
+        ...state,
+        affectedRecord:action.data,
+        successEdit:true
+      }
+    }
+
+    else if(action.type===`${name}_EDIT_OFF`){
+      return {
+        ...state,
+        affectedRecord:null,
+        successEdit:false
+      }
+    }
 
 
     return state
@@ -73,6 +88,12 @@ function actionOffSave(name){
     }
 }
 
+function actionOffEdit(name){
+  return {
+    type:`${name}_EDIT_OFF`
+  }
+}
+
 function actionOffDelete(name){
     return {
         type:`${name}_DELETE_OFF`
@@ -96,6 +117,10 @@ function actionDeleteReceive(name){
 
 export function CRUDOffSave(name){
     return actionOffSave(name)
+}
+
+export function CRUDOffEdit(name){
+  return actionOffEdit(name)
 }
 
 export function CRUDOffDelete(name){

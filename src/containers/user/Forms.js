@@ -34,7 +34,7 @@ class FormsComponent extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      formControls:Tools.generateFields(['username','email','password', 'firstName', 'lastName'])
+      formControls:Tools.generateFields(['username','email','password', 'firstname', 'lastname'])
     };
   }
 
@@ -85,8 +85,8 @@ class FormsComponent extends Component {
           username:{value:prevProps.user.username},
           email:{value:prevProps.user.email},
           password:{value:prevProps.user.password},
-          firstName:{value:prevProps.user.firstName},
-          lastName:{value:prevProps.user.lastName},
+          firstname:{value:prevProps.user.firstname},
+          lastname:{value:prevProps.user.lastname},
         }
       })
     }
@@ -125,7 +125,7 @@ class FormsComponent extends Component {
                     <Col xs="12" md="9">
                     {/* <Input type="text" id="text-input" name="username" placeholder="Text" onChange={this.handleChangeAlt} value={formFields.username} /> */}
                      
-                     <Input type="text" id="text-input" name="username" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.username.value}  />
+                     <Input type="text" id="username-input" name="username" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.username.value}  />
                       {/* <FormText color="muted">This is a help text</FormText> */}
                     </Col>
                   </FormGroup>
@@ -157,7 +157,7 @@ class FormsComponent extends Component {
                       <Label htmlFor="text-input">Firstname</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="firstname" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.firstName.value} />
+                      <Input type="text" id="firstname-input" name="firstname" placeholder="Text" onChange={this.handleChange} />
                     </Col>
                   </FormGroup>
 
@@ -166,7 +166,7 @@ class FormsComponent extends Component {
                       <Label htmlFor="text-input">Lastname</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="lastname" placeholder="Text" onChange={this.handleChange} value={this.state.formControls.lastName.value} />
+                      <Input type="text" id="lastname-input" name="lastname" placeholder="Text" onChange={this.handleChange}  />
                     </Col>
                   </FormGroup>
 

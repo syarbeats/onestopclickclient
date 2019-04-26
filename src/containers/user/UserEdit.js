@@ -18,7 +18,7 @@ import {
 } from 'reactstrap';
 import Tools from '../../helpers/Tools'
 import { connect } from 'react-redux';
-import {userEdit,userSaveOff,userReadOne} from '../../actions/user_action'
+import {userEdit,userEditOff,userReadOne} from '../../actions/user_action'
 import { Redirect} from 'react-router-dom';
 import InputComponent from './InputComponent'
 
@@ -95,10 +95,10 @@ class UserEdit extends Component {
   }
 
   render() {
-    const {successSave,dispatch,user} = this.props
+    const {successEdit,dispatch,user} = this.props
 
-    if (successSave === true) {
-      dispatch(userSaveOff())
+    if (successEdit === true) {
+      dispatch(userEditOff())
       return <Redirect to="/adminpanel/users" />
     }
 
@@ -119,7 +119,7 @@ class UserEdit extends Component {
                       <Label htmlFor="text-input">id</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input readOnly type="text" id="text-input" name="id" placeholder="Text" onChange={this.handleChange} value={this.state.formControls.id.value} />
+                      <Input readOnly type="text" id="id-input" name="id" placeholder="Text" onChange={this.handleChange} value={this.state.formControls.id.value} />
                     </Col>
                   </FormGroup>
 
@@ -128,10 +128,7 @@ class UserEdit extends Component {
                       <Label htmlFor="text-input">Username</Label>
                     </Col>
                     <Col xs="12" md="9">
-                    {/* <Input type="text" id="text-input" name="username" placeholder="Text" onChange={this.handleChangeAlt} value={formFields.username} /> */}
-                     
-                     <Input type="text" id="text-input" name="username" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.username.value}  />
-                      {/* <FormText color="muted">This is a help text</FormText> */}
+                     <Input type="text" id="username-input" name="username" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.username.value}  />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -139,10 +136,7 @@ class UserEdit extends Component {
                       <Label htmlFor="email-input">Email </Label>
                     </Col>
                     <Col xs="12" md="9">
-                    {/* <Input type="email" id="email-input" name="email" placeholder="Enter Email" autoComplete="email"   /> */}
-                     
                       <Input type="email" id="email-input" name="email" placeholder="Enter Email" autoComplete="email" onChange={this.handleChange}  value={this.state.formControls.email.value} />
-                      {/* <FormText className="help-block">Please enter your email</FormText> */}
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -150,10 +144,7 @@ class UserEdit extends Component {
                       <Label htmlFor="password-input">Password</Label>
                     </Col>
                     <Col xs="12" md="9">
-                    {/* <Input type="password" id="password-input" name="password" placeholder="Password" autoComplete="new-password" /> */}
-                     
-                      <Input type="password" id="password-input" name="password" placeholder="Password" autoComplete="new-password" onChange={this.handleChange}  value={this.state.formControls.password.value} />
-                      {/* <FormText className="help-block">Please enter a complex password</FormText> */}
+                    <Input type="password" id="password-input" name="password" placeholder="Password" autoComplete="new-password" onChange={this.handleChange}  value={this.state.formControls.password.value} />
                     </Col>
                   </FormGroup>
 
@@ -162,7 +153,7 @@ class UserEdit extends Component {
                       <Label htmlFor="text-input">Firstname</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="firstname" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.firstName.value} />
+                      <Input type="text" id="firstname-input" name="firstName" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.firstName.value} />
                     </Col>
                   </FormGroup>
 
@@ -171,7 +162,7 @@ class UserEdit extends Component {
                       <Label htmlFor="text-input">Lastname</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="lastname" placeholder="Text" onChange={this.handleChange} value={this.state.formControls.lastName.value} />
+                      <Input type="text" id="lastname-input" name="lastName" placeholder="Text" onChange={this.handleChange} value={this.state.formControls.lastName.value} />
                     </Col>
                   </FormGroup>
 
@@ -179,7 +170,6 @@ class UserEdit extends Component {
               </CardBody>
               <CardFooter>
                 <Button type="submit" size="sm" color="primary" onClick={this.handleSubmit}><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                {/* <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button> */}
               </CardFooter>
             </Card>
             
@@ -198,11 +188,11 @@ class UserEdit extends Component {
 
 function mapStateToProps(state){
   return {
-    successSave:state.userReducer.successSave,
+    successEdit:state.userReducer.successEdit,
     user:state.userReducer.record
   }
 }
 
-const Forms  = connect(mapStateToProps)(UserEdit)
+const UserEditForm  = connect(mapStateToProps)(UserEdit)
 
-export default Forms;
+export default UserEditForm;
