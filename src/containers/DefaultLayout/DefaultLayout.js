@@ -82,6 +82,12 @@ class DefaultLayoutComponent extends Component {
        </NavLink>
       
       </li>
+      <li className="nav-item">
+      <NavLink to={ADMIN_PATH+'/role'} className="nav-link">
+       <i className="nav-icon cui-file"></i> Role Management
+       </NavLink>
+      
+      </li>
      
       
     </ul>
@@ -109,7 +115,7 @@ class DefaultLayoutComponent extends Component {
                         )} />
                     ) : (null);
                   })}
-                  <Redirect from="/" to="/dashboard" />
+                  <Redirect from="/" to={ADMIN_PATH+"/dashboard"} />
                 </Switch>
               </Suspense>
             </Container>
