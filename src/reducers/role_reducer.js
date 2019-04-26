@@ -8,6 +8,12 @@ export default function roleReducer(state={
     permissions:[],
     permissionsByRole:[]
 },action){
+    if(action.type==="ROLE_PERMISSIONS_RECEIVE"){
+        return {
+            ...state,
+            permissionsByRole:action.permissions
+        }
+    }
     return actionSwitcher('ROLE',state,action)
 }
 
