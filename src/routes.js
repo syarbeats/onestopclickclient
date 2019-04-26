@@ -18,6 +18,9 @@ const ProductForm = React.lazy(() => import('./containers/product/Forms'));
 const PermissionTable = React.lazy(() => import('./containers/permission/Tables'));
 const PermissionForm = React.lazy(() => import('./containers/permission/Forms'));
 
+const RoleTable = React.lazy(() => import('./containers/role/Tables'));
+const RoleForm = React.lazy(() => import('./containers/role/Forms'));
+const PermissionsTable = React.lazy(() => import('./containers/role/PermissionsTable'));
 
 const routes = [
   //  { path: '/adminpanel/das', exact: true, name: 'Home' },
@@ -36,7 +39,10 @@ const routes = [
  { path: ADMIN_PATH+'/permission', exact: true,  name: 'Permissions', component: PermissionTable },
  { path: ADMIN_PATH+'/permission/add', exact: true,  name: 'Add Permission', component: PermissionForm },
  { path: ADMIN_PATH+'/permission/edit/:id', exact: true,  name: 'Edit Permission', component: PermissionForm },
-
+ { path: ADMIN_PATH+'/role', exact: true,  name: 'Roles', component: RoleTable },
+ { path: ADMIN_PATH+'/role/add', exact: true,  name: 'Add Role', component: RoleForm },
+ { path: ADMIN_PATH+'/role/edit/:id', exact: true,  name: 'Edit Role', component: RoleForm },
+ { path: ADMIN_PATH+'/role/:id/permissions', exact: true,  name: 'Manage Permissions', component: PermissionsTable },
 ];
 
 export default routes;
