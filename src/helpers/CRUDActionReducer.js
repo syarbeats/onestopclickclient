@@ -60,6 +60,13 @@ function actionSaveReceive(name,json){
     }
 }
 
+function actionEditReceive(name,json){
+  return {
+    type:`${name}_EDIT_RECEIVE`,
+    data:json
+  }
+}
+
 function actionOffSave(name){
     return {
         type:`${name}_SAVE_OFF`
@@ -129,6 +136,40 @@ export function CRUDSave(token,params,pathUrl,name) {
         .then((json) =>dispatch(actionSaveReceive(name,json)))
     }
     
+}
+
+export function CRUDEdit(token,params,pathUrl,name) {
+
+  axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+  const bodyFormdata = new FormData()
+  const keys = Object.keys(params)
+  keys.map((key)=>{
+    bodyFormdata.set(key,params[key])
+  })
+
+  let payload = {
+    id: bodyFormdata.get("id"),
+    username: bodyFormdata.get("username"),
+    password: bodyFormdata.get("password"),
+    email: bodyFormdata.get("email"),
+    firstName: bodyFormdata.get("firstName"),
+    lastName: bodyFormdata.get("lastName"),
+  }
+
+  return dispatch => {
+
+    console.log("Payload: "+ JSON.stringify(payload));
+    // return axios.post(`${API_URL}${pathUrl}`,params)
+    return axios({
+      method: 'patch',
+      url: `${API_URL}${pathUrl}`,
+      data: JSON.stringify(payload),       
+      config: { headers: {'Content-Type': 'application/json' }}
+    })
+      .then(response => response.data)
+      .then((json) =>dispatch(actionEditReceive(name,json)))
+  }
+
 }
 
 export function CRUDSaveJson(token,params,pathUrl,name) {

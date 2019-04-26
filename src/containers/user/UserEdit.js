@@ -18,11 +18,11 @@ import {
 } from 'reactstrap';
 import Tools from '../../helpers/Tools'
 import { connect } from 'react-redux';
-import {userSave, userEdit,userSaveOff,userReadOne} from '../../actions/user_action'
+import {userEdit,userSaveOff,userReadOne} from '../../actions/user_action'
 import { Redirect} from 'react-router-dom';
 import InputComponent from './InputComponent'
 
-class FormsComponent extends Component {
+class UserEdit extends Component {
   constructor(props) {
     super(props);
 
@@ -34,7 +34,7 @@ class FormsComponent extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      formControls:Tools.generateFields(['username','email','password', 'firstName', 'lastName'])
+      formControls:Tools.generateFields(['username','email','password', 'firstName', 'lastName', 'id'])
     };
   }
 
@@ -74,7 +74,7 @@ class FormsComponent extends Component {
 
   handleSubmit(event) {
     const {dispatch} = this.props
-    dispatch(userSave(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
+    dispatch(userEdit(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
     event.preventDefault();
   }
 
@@ -87,6 +87,7 @@ class FormsComponent extends Component {
           password:{value:prevProps.user.password},
           firstName:{value:prevProps.user.firstName},
           lastName:{value:prevProps.user.lastName},
+          id:{value:prevProps.user.id},
         }
       })
     }
@@ -94,9 +95,9 @@ class FormsComponent extends Component {
   }
 
   render() {
-    const {successSave,dispatch,user} = this.props
+    const {successEdit,dispatch,user} = this.props
    
-    if (successSave === true) {
+    if (successEdit === true) {
       dispatch(userSaveOff())
       return <Redirect to="/adminpanel/users" />
     }
@@ -113,11 +114,20 @@ class FormsComponent extends Component {
         <Col xs="12">
             <Card>
               <CardHeader>
-                <strong>User Form</strong> 
+                <strong>Edit User Data</strong>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal"  >
-                
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">id</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input readOnly type="text" id="text-input" name="id" placeholder="Text" onChange={this.handleChange} value={this.state.formControls.id.value} />
+                    </Col>
+                  </FormGroup>
+
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Username</Label>
@@ -198,6 +208,6 @@ function mapStateToProps(state){
   }
 }
 
-const Forms  = connect(mapStateToProps)(FormsComponent)
+const Forms  = connect(mapStateToProps)(UserEdit)
 
 export default Forms;
