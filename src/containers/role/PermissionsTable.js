@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, 
   PaginationLink, Row, Table,Button,Modal, ModalBody, ModalFooter, ModalHeader,Input} from 'reactstrap';
   import { connect } from 'react-redux'
+  import Checkbox from './Checkbox'
 
 
   import role_action from '../../actions/role_action'
@@ -17,23 +18,101 @@ class PermissionsTableComponent extends Component {
 
   constructor(props){
     super(props)
+    this.submitPermission = this.submitPermission.bind(this)
+    this.handleChoosePermission = this.handleChoosePermission.bind(this)
+    this.handleChooseAcquiredPermission = this.handleChooseAcquiredPermission.bind(this)
+    this.deletePermission = this.deletePermission.bind(this)
+    this.checkedValue = this.checkedValue.bind(this)
    
+    this.state={
+      checkedPermissions:{},
+      checkedAcquriredPermissions:{},
+      roleId:0
+    }
   }
 
 
   componentDidMount() {
     const { dispatch,match:{params}} = this.props
     const {id} = params;
+    this.setState({
+      roleId:id
+    })
     dispatch(role_action.readPermissions(localStorage.getItem("token"),id))
     dispatch(permission_action.fetch(localStorage.getItem("token")))
   }
-
-  handleChoosePermission(id){
-
+  submitPermission(){
+    const { dispatch} = this.props
+      const {checkedPermissions} = this.state
+      let permissionId = 0;
+      for (var key in checkedPermissions) {
+        if (checkedPermissions.hasOwnProperty(key)) {
+            if(permissionId===0 && checkedPermissions[key]){
+              permissionId = key
+            }
+        }
+      }
+      if(permissionId > 0){
+        this.setState({
+          checkedPermissions:{}
+        })
+        dispatch(role_action.addPermissions(localStorage.getItem("token"),this.state.roleId,permissionId))
+      }
+     
   }
 
+  deletePermission(){
+    const { dispatch} = this.props
+      const {checkedAcquriredPermissions} = this.state
+      let permissionId = 0;
+      for (var key in checkedAcquriredPermissions) {
+        if (checkedAcquriredPermissions.hasOwnProperty(key)) {
+            if(permissionId===0 && checkedAcquriredPermissions[key]){
+              permissionId = key
+            }
+        }
+      }
+      if(permissionId > 0){
+        this.setState({
+          checkedAcquriredPermissions:{}
+        })
+        dispatch(role_action.removePermissions(localStorage.getItem("token"),this.state.roleId,permissionId))
+      }
+     
+  }
+
+  handleChoosePermission(id,e){
+   
+    this.setState({
+      checkedPermissions:{
+        ...this.state.checkedPermissions,
+        [id]:e.target.checked
+      }
+    })
+   
+  }
+
+  handleChooseAcquiredPermission(id,e){
+   
+    this.setState({
+      checkedAcquriredPermissions:{
+        ...this.state.checkedAcquriredPermissions,
+        [id]:e.target.checked
+      }
+    })
+   
+  }
+
+  checkedValue(permId){
+    const {checkedAcquriredPermissions} = this.state;
+    let checked = checkedAcquriredPermissions[permId];
+
+    return checked?checked:false;
+  }
+
+
   render() {
-    const {permissionsByRole,permissions} = this.props
+    const {permissionsByRole,permissions,checkedAcquriredPermissions} = this.props
     return (
       <div className="animated fadeIn">
         
@@ -57,11 +136,11 @@ class PermissionsTableComponent extends Component {
                   <tbody>
               
                   { permissions.map((rec,i)=>(
-                      <tr key={i} onClick={e=>this.handleChoosePermission(rec.id)}>
+                      <tr key={i} >
                         <td>{rec.id}</td>
                         <td>{rec.permissionName}</td>
                         <td>{rec.permissionDescription}</td>
-                        <td><Input className="form-check-input" type="checkbox" /></td>
+                        <td><Input className="form-check-input" type="checkbox" onClick={e=>this.handleChoosePermission(rec.id,e)} /></td>
                     </tr>
                   ))}
                   </tbody>
@@ -75,8 +154,8 @@ class PermissionsTableComponent extends Component {
                
               </CardHeader>
               <CardBody>
-                <Button> <span class="cui-chevron-right" aria-hidden="true"></span> </Button> <br/>
-                <Button> <span class="cui-chevron-left" aria-hidden="true"></span> </Button>
+                <Button onClick={e=>this.submitPermission()}> <span class="cui-chevron-right" aria-hidden="true"></span> </Button> <br/>
+                <Button onClick={e=>this.deletePermission()}> <span class="cui-chevron-left" aria-hidden="true"></span> </Button>
               </CardBody>
             </Card>
           </Col>
@@ -92,6 +171,7 @@ class PermissionsTableComponent extends Component {
                     <th>ID</th>
                     <th>NAME</th>
                     <th>DESCRIPTION</th>
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -101,6 +181,9 @@ class PermissionsTableComponent extends Component {
                         <td>{rec.id}</td>
                         <td>{rec.permissionName}</td>
                         <td>{rec.permissionDescription}</td>
+                        {/* <td><Input className="form-check-input" type="checkbox" onClick={e=>this.handleChooseAcquiredPermission(rec.id,e)} /></td> */}
+                        <td><Checkbox recId={rec.id} handleChooseAcquiredPermission={this.handleChooseAcquiredPermission} /></td>
+                    
                     </tr>
                   ))}
                   </tbody>
@@ -122,7 +205,13 @@ function mapStateToProps(state) {
     token:state.auth_reducer.token,
     afterRequestDelete:state.roleReducer.afterRequestDelete,
     permissionsByRole:state.roleReducer.permissionsByRole,
-    permissions:state.permissionReducer.records
+    permissions:state.permissionReducer.records.filter(function(perms){
+      let found = state.roleReducer.permissionsByRole.find(function(element) {
+        return element.id === perms.id;
+      })
+  
+      return found?false:true
+    })
   }
 }
 

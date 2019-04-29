@@ -54,6 +54,12 @@ export function actionSwitcher(name,state,action){
         successEdit:false
       }
     }
+    else if(action.type===`${name}_RESP500_RECEIVE`){
+        return {
+          ...state,
+          receivedResponse500:true
+        }
+    }
 
 
     return state
@@ -113,6 +119,12 @@ function actionDeleteReceive(name){
     }
 }
 
+function actionReceiveResp500(name){
+    return {
+        type:`ERROR_RESPONSE_500_RECEIVE`
+    }
+}
+
 
 
 export function CRUDOffSave(name){
@@ -136,6 +148,7 @@ export function CRUDRead(token,pathUrl,name) {
         return axios.get(`${API_URL}${pathUrl}`)
         .then(response => response.data)
         .then((json) =>dispatch(actionReceive(name,json)))
+        .catch( (error) => dispatch(actionReceiveResp500(name,error.response)) )
     }
     
 }

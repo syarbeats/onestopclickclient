@@ -8,7 +8,8 @@ export default function roleReducer(state={
     permissions:[],
     permissionsByRole:[]
 },action){
-    if(action.type==="ROLE_PERMISSIONS_RECEIVE"){
+    if(action.type==="ROLE_PERMISSIONS_RECEIVE" || action.type==="ROLE_ADD_PERMISSIONS_RECEIVE"
+        || action.type==="ROLE_DELETE_PERMISSIONS_RECEIVE"){
         return {
             ...state,
             permissionsByRole:action.permissions

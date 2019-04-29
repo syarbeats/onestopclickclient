@@ -45,8 +45,17 @@ class DefaultLayoutComponent extends Component {
     this.props.history.push('/login')
   }
 
+  componentWillReceiveProps(prevProps) {
+    console.log(prevProps)
+    if(prevProps.receiveResponse500){
+      alert("Hello")
+    }
+    
+  }
+
   render() {
- 
+
+  
     return (
       <div className="app">
         <AppHeader fixed>
@@ -136,6 +145,12 @@ class DefaultLayoutComponent extends Component {
   }
 }
 
-const DefaultLayout = connect()(DefaultLayoutComponent)
+function mapStateToProps(state){
+    return {
+       receiveResponse500:state.errorReducer.receivedResponse500
+    }
+}
+
+const DefaultLayout = connect(mapStateToProps)(DefaultLayoutComponent)
 
 export default DefaultLayout;
