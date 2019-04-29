@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import $ from "jquery";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { Redirect } from 'react-router-dom';
 
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, 
   PaginationLink, Row, Table,Button} from 'reactstrap';
   import { connect } from 'react-redux'
 
   import {userFetch} from '../../actions/user_action.js'
+import axios from "axios";
+import {API_URL} from "../../config/Config";
 
 const btnStyle = {
   margin:"10px"
@@ -36,9 +41,32 @@ class TablesComponent extends Component {
     this.props.history.push(`/adminpanel/users/edit/${id}`);
 
   }
-  handleDeleteClick(e){
-    e.preventDefault()
-    
+  handleDeleteClick(id){
+    confirmAlert({
+      title: 'Confirm to Delete user with id: '+id,
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            axios.defaults.headers.common = {'Authorization': `Bearer `+localStorage.getItem("token")};
+            axios({
+              method: 'delete',
+              url: `http://localhost:8080/api/v1/users/user/delete/`+id
+            })
+              .then(response => response.data)
+              .then((json) => {
+                this.props.history.push("/adminpanel/users");
+                alert("User data with id: "+id +" has been delete successfully.");
+              });
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => alert('User data deletion was canceled..')
+        }
+      ]
+    });
   }
 
 
@@ -89,8 +117,9 @@ class TablesComponent extends Component {
                         <td>{user.role}</td>
                         <td>{user.enabled}</td>
                         <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(user.id)}>Edit</Button></td>
-                        <td><Button className="btn btn-info" onClick={this.handleDeleteClick}>Delete</Button></td>
-                    </tr>
+                        <td><Button className="btn btn-info" onClick={e=>this.handleDeleteClick(user.id)}>Delete</Button></td>
+
+                      </tr>
                   ))}
                   </tbody>
                 </Table>
