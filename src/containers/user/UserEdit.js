@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import {
-  Badge,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Col,
- 
   Form,
   FormGroup,
-  FormText,
-
   Input,
   Label,
   Row,
@@ -20,7 +16,7 @@ import Tools from '../../helpers/Tools'
 import { connect } from 'react-redux';
 import {userEdit,userEditOff,userReadOne} from '../../actions/user_action'
 import { Redirect} from 'react-router-dom';
-import InputComponent from './InputComponent'
+
 
 class UserEdit extends Component {
   constructor(props) {
@@ -44,15 +40,8 @@ class UserEdit extends Component {
   
     if(id){
       dispatch(userReadOne(localStorage.getItem("token"),id))
- 
     }
-
-
-  
   }
-
- 
-
 
   toggle() {
     this.setState({ collapse: !this.state.collapse });
@@ -66,10 +55,6 @@ class UserEdit extends Component {
   handleChange = event => {
       
     Tools.changeHandler(event,this)
-  }
-
-  handleChangeAlt = event => {
-    
   }
 
   handleSubmit(event) {
@@ -172,15 +157,8 @@ class UserEdit extends Component {
                 <Button type="submit" size="sm" color="primary" onClick={this.handleSubmit}><i className="fa fa-dot-circle-o"></i> Submit</Button>
               </CardFooter>
             </Card>
-            
           </Col>
-          
         </Row>
-        
-        
-        
-        
-      
       </div>
     );
   }

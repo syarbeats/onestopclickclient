@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import {
-  Badge,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Col,
- 
   Form,
   FormGroup,
-  FormText,
-
   Input,
   Label,
   Row,
@@ -20,7 +16,7 @@ import Tools from '../../helpers/Tools'
 import { connect } from 'react-redux';
 import {userSave, userEdit,userSaveOff,userReadOne} from '../../actions/user_action'
 import { Redirect} from 'react-router-dom';
-import InputComponent from './InputComponent'
+
 
 class FormsComponent extends Component {
   constructor(props) {
@@ -44,15 +40,8 @@ class FormsComponent extends Component {
   
     if(id){
       dispatch(userReadOne(localStorage.getItem("token"),id))
- 
     }
-
-
-  
   }
-
- 
-
 
   toggle() {
     this.setState({ collapse: !this.state.collapse });
@@ -62,14 +51,9 @@ class FormsComponent extends Component {
     this.setState((prevState) => { return { fadeIn: !prevState }});
   }
 
-
   handleChange = event => {
       
     Tools.changeHandler(event,this)
-  }
-
-  handleChangeAlt = event => {
-    
   }
 
   handleSubmit(event) {
@@ -101,11 +85,6 @@ class FormsComponent extends Component {
       return <Redirect to="/adminpanel/users" />
     }
 
-    const myusername = "helllo"
-   
-
-
- 
     return (
       <div className="animated fadeIn">
         
@@ -123,10 +102,7 @@ class FormsComponent extends Component {
                       <Label htmlFor="text-input">Username</Label>
                     </Col>
                     <Col xs="12" md="9">
-                    {/* <Input type="text" id="text-input" name="username" placeholder="Text" onChange={this.handleChangeAlt} value={formFields.username} /> */}
-                     
                      <Input type="text" id="username-input" name="username" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.username.value}  />
-                      {/* <FormText color="muted">This is a help text</FormText> */}
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -134,10 +110,7 @@ class FormsComponent extends Component {
                       <Label htmlFor="email-input">Email </Label>
                     </Col>
                     <Col xs="12" md="9">
-                    {/* <Input type="email" id="email-input" name="email" placeholder="Enter Email" autoComplete="email"   /> */}
-                     
                       <Input type="email" id="email-input" name="email" placeholder="Enter Email" autoComplete="email" onChange={this.handleChange}  value={this.state.formControls.email.value} />
-                      {/* <FormText className="help-block">Please enter your email</FormText> */}
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -145,10 +118,7 @@ class FormsComponent extends Component {
                       <Label htmlFor="password-input">Password</Label>
                     </Col>
                     <Col xs="12" md="9">
-                    {/* <Input type="password" id="password-input" name="password" placeholder="Password" autoComplete="new-password" /> */}
-                     
                       <Input type="password" id="password-input" name="password" placeholder="Password" autoComplete="new-password" onChange={this.handleChange}  value={this.state.formControls.password.value} />
-                      {/* <FormText className="help-block">Please enter a complex password</FormText> */}
                     </Col>
                   </FormGroup>
 
@@ -174,18 +144,10 @@ class FormsComponent extends Component {
               </CardBody>
               <CardFooter>
                 <Button type="submit" size="sm" color="primary" onClick={this.handleSubmit}><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                {/* <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button> */}
               </CardFooter>
             </Card>
-            
           </Col>
-          
         </Row>
-        
-        
-        
-        
-      
       </div>
     );
   }

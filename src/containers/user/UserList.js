@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-import $ from "jquery";
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { Redirect } from 'react-router-dom';
 
 import {
-  Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem,
-  PaginationLink, Row, Table, Button, ModalHeader, ModalBody, ModalFooter, Modal
+  Card, CardBody, CardHeader, Col,
+  Row, Table, Button, ModalHeader, ModalBody, ModalFooter, Modal
 } from 'reactstrap';
 import { connect } from 'react-redux'
 
 import {userFetch} from '../../actions/user_action.js'
-import axios from "axios";
-import {API_URL} from "../../config/Config";
-import {userEditOff} from "../../actions/user_action";
-import permission_action from "../../actions/permission_action";
 import new_user_action from "../../actions/new_user_Action";
 
 const btnStyle = {
@@ -59,14 +52,10 @@ class TablesComponent extends Component {
 
 
   handleEditClick(id){
-
-    //e.preventDefault()
     this.props.history.push(`/adminpanel/users/edit/${id}`);
-
   }
 
   handleDeleteClick(id){
-    // e.preventDefault()
     this.setState({
       modal:true,
       idToDelete:id
