@@ -65,6 +65,7 @@ class TablesComponent extends Component {
       modal: !this.state.modal
     });
   }
+
   handelConfirmDelete(e){
     const { dispatch} = this.props
     e.preventDefault()

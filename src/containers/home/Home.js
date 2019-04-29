@@ -1,4 +1,8 @@
-import React,{Component,Suspense } from 'react'
+import React,{Component,Suspense } from 'react';
+import Header from './Header';
+import HeaderMenu from './HeaderMenu';
+import MainContent from './MainContent';
+
 import {
     AppAside,
     AppBreadcrumb,
@@ -19,25 +23,30 @@ class Home extends Component{
     loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
     render(){
         return (
-            <div className="app">
+          <div>
+            <HeaderMenu/>
+            <Header/>
+            <MainContent/>
+          </div>
+           /*{/!* <div className="app">
                 <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
-            {/* <DefaultHeader/> */}
-          </Suspense>
-        </AppHeader>
-        <div className="app-body">
+                <Suspense  fallback={this.loading()}>
+                   <DefaultHeader/>
+                </Suspense>
+                </AppHeader>
+                <div className="app-body">
           
-          <main className="main">
-            <h1>OneStopClick</h1>
-          </main>
+                   <main className="main">
+                      <h1>OneStopClicks</h1>
+                   </main>
         
-        </div>
-                <AppFooter>
-                    <Suspense fallback={this.loading()}>
+                </div>
+                    <AppFooter>
+                      <Suspense fallback={this.loading()}>
                         <DefaultFooter />
-                    </Suspense>
-                </AppFooter>
-            </div>
+                      </Suspense>
+                  </AppFooter>
+            </div>*!/}*/
         )
     }
 }

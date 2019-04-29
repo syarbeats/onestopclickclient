@@ -11,6 +11,7 @@ import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem,
   import {userFetch} from '../../actions/user_action.js'
 import axios from "axios";
 import {API_URL} from "../../config/Config";
+import {userEditOff} from "../../actions/user_action";
 
 const btnStyle = {
   margin:"10px"
@@ -19,10 +20,11 @@ const btnStyle = {
 class TablesComponent extends Component {
 
   constructor(props){
-    super(props)
-    this.handleAddUserClick = this.handleAddUserClick.bind(this)
-    this.handleEditClick = this.handleEditClick.bind(this)
-    this.handleDeleteClick = this.handleDeleteClick.bind(this)
+    super(props);
+
+    this.handleAddUserClick = this.handleAddUserClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
   handleAddUserClick(e){
@@ -42,6 +44,8 @@ class TablesComponent extends Component {
 
   }
   handleDeleteClick(id){
+
+
     confirmAlert({
       title: 'Confirm to Delete user with id: '+id,
       message: 'Are you sure to do this.',
@@ -57,6 +61,7 @@ class TablesComponent extends Component {
               .then(response => response.data)
               .then((json) => {
                 this.props.history.push("/adminpanel/users");
+                this.setState({deleteStatus: 'true'});
                 alert("User data with id: "+id +" has been delete successfully.");
               });
           }
@@ -71,7 +76,15 @@ class TablesComponent extends Component {
 
 
   render() {
-    const {users} = this.props
+    //const {users} = this.props;
+
+    const {successUserDelete,dispatch,users} = this.props
+
+    if (successUserDelete === true) {
+      dispatch(userEditOff())
+      return <Redirect to="/adminpanel/users" />
+    }
+
     return (
       <div className="animated fadeIn">
         
@@ -101,8 +114,8 @@ class TablesComponent extends Component {
                     <th>EMAIL</th>
                     <th>ROLE</th>
                     <th>STATUS</th>
-                    <th></th>
-                    <th></th>
+                    <th colspan="2"></th>
+
                   </tr>
                   </thead>
                   <tbody>

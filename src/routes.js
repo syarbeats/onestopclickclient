@@ -6,7 +6,8 @@ const Dashboard = React.lazy(() => import('./views/Dashboard'));
 // const Users = React.lazy(() => import('./views/Users/Users'));
 // const User = React.lazy(() => import('./views/Users/User'));
 
-const Users = React.lazy(() => import('./containers/user/Tables'));
+/*const Users = React.lazy(() => import('./containers/user/Tables'));*/
+const Users = React.lazy(() => import('./containers/user/UserList'));
 const UserForm = React.lazy(() => import('./containers/user/Forms'));
 const UserEdit = React.lazy(() => import('./containers/user/UserEdit'));
 
