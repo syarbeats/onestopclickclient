@@ -25,6 +25,7 @@ class TablesComponent extends Component {
     this.handleAddUserClick = this.handleAddUserClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleRolesClick = this.handleRolesClick.bind(this);
   }
 
   handleAddUserClick(e){
@@ -43,6 +44,7 @@ class TablesComponent extends Component {
     this.props.history.push(`/adminpanel/users/edit/${id}`);
 
   }
+
   handleDeleteClick(id){
 
 
@@ -73,6 +75,8 @@ class TablesComponent extends Component {
       ]
     });
   }
+
+
 
 
   render() {
@@ -131,7 +135,6 @@ class TablesComponent extends Component {
                         <td>{user.enabled}</td>
                         <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(user.id)}>Edit</Button></td>
                         <td><Button className="btn btn-info" onClick={e=>this.handleDeleteClick(user.id)}>Delete</Button></td>
-
                       </tr>
                   ))}
                   </tbody>

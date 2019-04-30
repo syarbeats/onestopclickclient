@@ -85,12 +85,12 @@ class DefaultLayoutComponent extends Component {
        </NavLink>
       
       </li>
-      <li className="nav-item">
+      {/* <li className="nav-item">
       <NavLink to={ADMIN_PATH+'/permission'} className="nav-link">
        <i className="nav-icon cui-file"></i> Permission Management
        </NavLink>
       
-      </li>
+      </li> */}
       <li className="nav-item">
       <NavLink to={ADMIN_PATH+'/role'} className="nav-link">
        <i className="nav-icon cui-file"></i> Role Management

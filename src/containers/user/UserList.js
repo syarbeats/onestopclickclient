@@ -78,6 +78,10 @@ class TablesComponent extends Component {
     dispatch(new_user_action.delete(localStorage.getItem("token"),this.state.idToDelete))
   }
 
+  handleRolesClick(userId){
+    this.props.history.push(`/adminpanel/users/roles/${userId}`);
+  }
+
   render() {
     const {users} = this.props;
 
@@ -110,7 +114,7 @@ class TablesComponent extends Component {
                     <th>EMAIL</th>
                     <th>ROLE</th>
                     <th>STATUS</th>
-                    <th colspan="2"></th>
+                    <th colspan="3"></th>
 
                   </tr>
                   </thead>
@@ -125,9 +129,9 @@ class TablesComponent extends Component {
                       <td>{user.email}</td>
                       <td>{user.role}</td>
                       <td>{JSON.stringify(user.enabled)}</td>
+                      <td><Button className="btn btn-info" onClick={e=>this.handleRolesClick(user.id)}>Roles</Button></td>
                       <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(user.id)}>Edit</Button></td>
                       <td><Button className="btn btn-info" onClick={e=>this.handleDeleteClick(user.id)}>Delete</Button></td>
-
                     </tr>
                   ))}
                   </tbody>

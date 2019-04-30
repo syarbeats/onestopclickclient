@@ -23,6 +23,8 @@ const RoleTable = React.lazy(() => import('./containers/role/Tables'));
 const RoleForm = React.lazy(() => import('./containers/role/Forms'));
 const PermissionsTable = React.lazy(() => import('./containers/role/PermissionsTable'));
 
+const UserRolesTable = React.lazy(() => import('./containers/user/UserRolesTable'));
+
 const routes = [
   //  { path: '/adminpanel/das', exact: true, name: 'Home' },
   { path: ADMIN_PATH+'/dashboard', name: 'Dashboard', component: Dashboard },
@@ -44,6 +46,7 @@ const routes = [
  { path: ADMIN_PATH+'/role/add', exact: true,  name: 'Add Role', component: RoleForm },
  { path: ADMIN_PATH+'/role/edit/:id', exact: true,  name: 'Edit Role', component: RoleForm },
  { path: ADMIN_PATH+'/role/:id/permissions', exact: true,  name: 'Manage Permissions', component: PermissionsTable },
+ { path: ADMIN_PATH+'/users/roles/:id', exact: true,  name: 'Manage Roles', component: UserRolesTable },
 ];
 
 export default routes;

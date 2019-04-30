@@ -5,6 +5,7 @@ import {Provider} from 'react-redux'
 import './App.scss';
 import {PrivateRouteComponent,AuthButton} from './containers/PrivateRoute';
 
+
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
 // Containers
@@ -22,6 +23,7 @@ class App2 extends Component {
   render() {
     const {store} = this.props
     return (
+      
       <Provider store={store}>
       <HashRouter>
           <React.Suspense fallback={loading()}>
