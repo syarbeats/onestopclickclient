@@ -124,7 +124,7 @@ class TablesComponent extends Component {
                       <td>{user.lastName}</td>
                       <td>{user.email}</td>
                       <td>{user.role}</td>
-                      <td>{user.enabled}</td>
+                      <td>{JSON.stringify(user.enabled)}</td>
                       <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(user.id)}>Edit</Button></td>
                       <td><Button className="btn btn-info" onClick={e=>this.handleDeleteClick(user.id)}>Delete</Button></td>
 
