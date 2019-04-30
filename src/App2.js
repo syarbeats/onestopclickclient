@@ -4,9 +4,23 @@ import {Provider} from 'react-redux'
 // import { renderRoutes } from 'react-router-config';
 import './App.scss';
 import {PrivateRouteComponent,AuthButton} from './containers/PrivateRoute';
-
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
+
+// alert optional cofiguration
+const options = {
+  // you can also just use 'bottom center'
+  position: positions.TOP_CENTER,
+  timeout: 5000,
+  offset: '30px',
+  // you can also just use 'scale'
+  //transition: transitions.SCALE,
+  containerStyle: {
+    zIndex: 10000
+  }
+}
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
@@ -23,7 +37,7 @@ class App2 extends Component {
   render() {
     const {store} = this.props
     return (
-      
+      <AlertProvider template={AlertTemplate} {...options}>
       <Provider store={store}>
       <HashRouter>
           <React.Suspense fallback={loading()}>
@@ -41,6 +55,7 @@ class App2 extends Component {
           </React.Suspense>
       </HashRouter>
       </Provider>
+      </AlertProvider>
     );
   }
 }

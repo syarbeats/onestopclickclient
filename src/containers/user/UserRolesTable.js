@@ -9,13 +9,21 @@ import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem,
 
   import {readRoles,addRoles,removeRoles} from '../../actions/user_action'
   import role_action from '../../actions/role_action'
+  import AlertButton from '../../components/AlertButton'
+  
 
 const btnStyle = {
   margin:"10px"
 }
 
+
+
+
+
 class UserRolesTableComponent extends Component {
 
+
+ 
   constructor(props){
     super(props)
     this.submitRole = this.submitRole.bind(this)
@@ -23,12 +31,15 @@ class UserRolesTableComponent extends Component {
     this.handleChooseAcquiredRole = this.handleChooseAcquiredRole.bind(this)
     this.deleteRole = this.deleteRole.bind(this)
     this.checkedValue = this.checkedValue.bind(this)
+  
    
     this.state={
       checkedRoles:{},
       checkedAcquriredRoles:{},
       userId:0
     }
+
+    
   }
 
 
@@ -41,7 +52,7 @@ class UserRolesTableComponent extends Component {
     dispatch(readRoles(localStorage.getItem("token"),id))
     dispatch(role_action.fetch(localStorage.getItem("token")))
   }
-  submitRole(){
+  submitRole(alert){
     const { dispatch} = this.props
       const {checkedRoles} = this.state
       let roleId = 0;
@@ -57,11 +68,14 @@ class UserRolesTableComponent extends Component {
           checkedRoles:{}
         })
         dispatch(addRoles(localStorage.getItem("token"),this.state.userId,roleId))
+      }else{
+        alert("Please select role first!")
       }
      
   }
 
-  deleteRole(){
+  deleteRole(alert){
+  
     const { dispatch} = this.props
       const {checkedAcquriredRoles} = this.state
       let roleId = 0;
@@ -78,7 +92,10 @@ class UserRolesTableComponent extends Component {
         })
         dispatch(removeRoles(localStorage.getItem("token"),this.state.userId,roleId))
       }else{
-        
+      //  const Alert = useAlert()
+       // Alert.show('Oh look, an alert!')
+    //   alert()
+    alert("Please select role first!")
       }
      
   }
@@ -112,8 +129,14 @@ class UserRolesTableComponent extends Component {
     return checked?checked:false;
   }
 
+  // testAlertButton(hello){
+  //   console.log("Hellllo")
+  //   hello()
+  // }
+
 
   render() {
+    
     const {rolesByUser,roles,checkedAcquriredRoles} = this.props
    
     return (
@@ -124,7 +147,7 @@ class UserRolesTableComponent extends Component {
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i><strong>Available</strong>
-                
+                {/* <AlertButton onClick={this.testAlertButton}>Hello</AlertButton> */}
               </CardHeader>
               <CardBody>
               <Table hover bordered striped responsive size="sm">
@@ -157,8 +180,11 @@ class UserRolesTableComponent extends Component {
                
               </CardHeader>
               <CardBody>
-                <Button onClick={e=>this.submitRole()}> <span class="cui-chevron-right" aria-hidden="true"></span> </Button> <br/>
-                <Button onClick={e=>this.deleteRole()}> <span class="cui-chevron-left" aria-hidden="true"></span> </Button>
+              <AlertButton onClick={this.submitRole}><span class="cui-chevron-right" aria-hidden="true"></span></AlertButton><br/>
+                {/* <Button onClick={e=>this.submitRole()}> <span class="cui-chevron-right" aria-hidden="true"></span> </Button> <br/> */}
+                {/* <Button onClick={e=>this.deleteRole()}> <span class="cui-chevron-left" aria-hidden="true"></span> </Button> */}
+                <AlertButton onClick={this.deleteRole}> <span class="cui-chevron-left" aria-hidden="true"></span> </AlertButton>
+             
               </CardBody>
             </Card>
           </Col>
@@ -200,6 +226,8 @@ class UserRolesTableComponent extends Component {
     );
   }
 }
+
+
 
 function mapStateToProps(state) {
  
