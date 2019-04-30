@@ -12,12 +12,12 @@ class HeaderMenu extends React.Component{
                                     <button type="button" className="btn btn-primary">Home</button><span className="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/adminpanel/dashboard">
-                                    <button type="button" className="btn btn-secondary">Register User</button></a>
+                                <a className="nav-link" href="/#/adminpanel/dashboard">
+                                    <button type="button" className="btn btn-secondary">Admin Dashboard</button></a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/user/list">
-                                    <button type="button" className="btn btn-success">Show User List</button></a>
+                                <a className="nav-link" href="/logout">
+                                    <button type="button" className="btn btn-success">Logout</button></a>
                             </li>
                         </ul>
                     </div>
