@@ -20,6 +20,7 @@ class TablesComponent extends Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
     this.toggle = this.toggle.bind(this)
     this.handelConfirmDelete = this.handelConfirmDelete.bind(this)
+    this.handleCategoriesClick = this.handleCategoriesClick.bind(this)
     this.state = {
       modal:false,
       idToDelete:0
@@ -74,7 +75,9 @@ class TablesComponent extends Component {
     })
     dispatch(product_action.delete(localStorage.getItem("token"),this.state.idToDelete))
   }
-
+  handleCategoriesClick(id){
+    this.props.history.push(`/adminpanel/product/${id}/categories`);
+  }
 
   render() {
     const {records} = this.props
@@ -107,6 +110,7 @@ class TablesComponent extends Component {
                     <th>IMAGE</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -118,6 +122,7 @@ class TablesComponent extends Component {
                         <td>{rec.price}</td>
                         <td>{rec.description}</td>
                         <td>{rec.image_url}</td>
+                        <td><Button className="btn btn-info" onClick={e=>this.handleCategoriesClick(rec.id)}>Categories</Button></td>
                         <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(rec.id)}>Edit</Button></td>
                         <td><Button className="btn btn-info" onClick={e=>this.handleDeleteClick(rec.id)}>Delete</Button></td>
                     </tr>
