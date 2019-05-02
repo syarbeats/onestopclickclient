@@ -18,7 +18,7 @@ import {
 } from 'reactstrap';
 import Tools from '../../helpers/Tools'
 import { connect } from 'react-redux';
-import category_action from '../../actions/category_action'
+import subcategory_action from '../../actions/subcategory_action'
 import { Redirect} from 'react-router-dom';
 import {ADMIN_PATH} from '../../config/Config'
 
@@ -34,7 +34,7 @@ class FormsComponent extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      formControls:Tools.generateFields(['categoryName','categoryDescription'])
+      formControls:Tools.generateFields(['subCategoryName','subCategoryDescription'])
     };
   }
 
@@ -43,7 +43,7 @@ class FormsComponent extends Component {
     const {id} = params;
   
     if(id){
-     dispatch(category_action.readOne(localStorage.getItem("token"),id))
+     dispatch(subcategory_action.readOne(localStorage.getItem("token"),id))
     }
 
 
@@ -73,7 +73,7 @@ class FormsComponent extends Component {
 
   handleSubmit(event) {
     const {dispatch} = this.props
-    dispatch(category_action.saveJson(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
+    dispatch(subcategory_action.saveJson(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
     event.preventDefault();
   }
 
@@ -98,8 +98,8 @@ class FormsComponent extends Component {
     const {successSave,dispatch} = this.props
    
     if (successSave === true) {
-      dispatch(category_action.saveOff())
-      return <Redirect to={ADMIN_PATH+"/category"} />
+      dispatch(subcategory_action.saveOff())
+      return <Redirect to={ADMIN_PATH+"/subcategory"} />
     }
 
  
@@ -112,7 +112,7 @@ class FormsComponent extends Component {
         <Col xs="12">
             <Card>
               <CardHeader>
-                <strong>Category Form</strong> 
+                <strong>Sub Category Form</strong> 
               </CardHeader>
               <CardBody>
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal"  >
@@ -123,7 +123,7 @@ class FormsComponent extends Component {
                     </Col>
                     <Col xs="12" md="9">
                   
-                     <Input type="text" id="text-input" name="categoryName" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.categoryName.value}  />
+                     <Input type="text" id="text-input" name="subCategoryName" placeholder="Text" onChange={this.handleChange}  value={this.state.formControls.subCategoryName.value}  />
           
                     </Col>
                   </FormGroup>
@@ -134,7 +134,7 @@ class FormsComponent extends Component {
                     </Col>
                     <Col xs="12" md="9">
                    
-                      <Input type="text" id="description-input" name="categoryDescription"  onChange={this.handleChange}  value={this.state.formControls.categoryDescription.value} />
+                      <Input type="text" id="description-input" name="subCategoryDescription"  onChange={this.handleChange}  value={this.state.formControls.subCategoryDescription.value} />
                    </Col>
                   </FormGroup>
 
@@ -161,8 +161,8 @@ class FormsComponent extends Component {
 
 function mapStateToProps(state){
   return {
-    successSave:state.categoryReducer.successSave,
-    record:state.categoryReducer.record
+    successSave:state.subCategoryReducer.successSave,
+    record:state.subCategoryReducer.record
   }
 }
 

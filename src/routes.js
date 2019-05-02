@@ -28,6 +28,9 @@ const UserRolesTable = React.lazy(() => import('./containers/user/UserRolesTable
 const CategoryTable = React.lazy(() => import('./containers/category/Tables'));
 const CategoryForm = React.lazy(() => import('./containers/category/Forms'));
 
+const SubCategoryTable = React.lazy(() => import('./containers/subcategory/Tables'));
+const SubCategoryForm = React.lazy(() => import('./containers/subcategory/Forms'));
+
 const routes = [
   //  { path: '/adminpanel/das', exact: true, name: 'Home' },
   { path: ADMIN_PATH+'/dashboard', name: 'Dashboard', component: Dashboard },
@@ -53,6 +56,9 @@ const routes = [
  { path: ADMIN_PATH+'/category', exact: true,  name: 'Categories', component: CategoryTable },
  { path: ADMIN_PATH+'/category/add', exact: true,  name: 'Add Category', component: CategoryForm },
  { path: ADMIN_PATH+'/category/edit/:id', exact: true,  name: 'Edit Category', component: CategoryForm },
+ { path: ADMIN_PATH+'/subcategory', exact: true,  name: 'Sub Categories', component: SubCategoryTable },
+ { path: ADMIN_PATH+'/subcategory/add', exact: true,  name: 'Add Sub Category', component: SubCategoryForm },
+ { path: ADMIN_PATH+'/subcategory/edit/:id', exact: true,  name: 'Edit Sub Category', component: SubCategoryForm },
 ];
 
 export default routes;
