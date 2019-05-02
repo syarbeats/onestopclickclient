@@ -80,6 +80,12 @@ class DefaultLayoutComponent extends Component {
       
       </li>
       <li className="nav-item">
+      <NavLink to={ADMIN_PATH+'/category'} className="nav-link">
+       <i className="nav-icon cui-file"></i> Category Management
+       </NavLink>
+      
+      </li>
+      <li className="nav-item">
       <NavLink to={ADMIN_PATH+'/product'} className="nav-link">
        <i className="nav-icon cui-file"></i> Product Management
        </NavLink>

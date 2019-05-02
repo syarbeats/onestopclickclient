@@ -25,6 +25,9 @@ const PermissionsTable = React.lazy(() => import('./containers/role/PermissionsT
 
 const UserRolesTable = React.lazy(() => import('./containers/user/UserRolesTable'));
 
+const CategoryTable = React.lazy(() => import('./containers/category/Tables'));
+const CategoryForm = React.lazy(() => import('./containers/category/Forms'));
+
 const routes = [
   //  { path: '/adminpanel/das', exact: true, name: 'Home' },
   { path: ADMIN_PATH+'/dashboard', name: 'Dashboard', component: Dashboard },
@@ -35,6 +38,7 @@ const routes = [
  { path: ADMIN_PATH+'/users', exact: true,  name: 'Users', component: Users },
  { path: ADMIN_PATH+'/users/add', exact: true,  name: 'UsersForm', component: UserForm },
  { path: ADMIN_PATH+'/users/edit/:id', exact: true,  name: 'UsersForm', component: UserEdit },
+ { path: ADMIN_PATH+'/users/roles/:id', exact: true,  name: 'Manage Roles', component: UserRolesTable },
 /*  { path: ADMIN_PATH+'/users/user/edit/:id', exact: true,  name: 'UsersForm', component: UserEdit },*/
  { path: ADMIN_PATH+'/product', exact: true,  name: 'Products', component: ProductTable },
  { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
@@ -46,7 +50,9 @@ const routes = [
  { path: ADMIN_PATH+'/role/add', exact: true,  name: 'Add Role', component: RoleForm },
  { path: ADMIN_PATH+'/role/edit/:id', exact: true,  name: 'Edit Role', component: RoleForm },
  { path: ADMIN_PATH+'/role/:id/permissions', exact: true,  name: 'Manage Permissions', component: PermissionsTable },
- { path: ADMIN_PATH+'/users/roles/:id', exact: true,  name: 'Manage Roles', component: UserRolesTable },
+ { path: ADMIN_PATH+'/category', exact: true,  name: 'Categories', component: CategoryTable },
+ { path: ADMIN_PATH+'/category/add', exact: true,  name: 'Add Category', component: CategoryForm },
+ { path: ADMIN_PATH+'/category/edit/:id', exact: true,  name: 'Edit Category', component: CategoryForm },
 ];
 
 export default routes;
