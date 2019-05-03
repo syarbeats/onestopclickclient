@@ -6,7 +6,6 @@ export function userFetch(token){
     return CRUDRead(token,'/api/v1/users','USER')
 }
 
-
 export function userSave(token,user) {
    
     return CRUDSave(token,user,'/api/v1/users/register','USER')

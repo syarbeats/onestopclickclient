@@ -125,7 +125,12 @@ function actionReceiveResp500(name){
     }
 }
 
-
+function actionEventReceive(name,json){
+  return {
+    type:`${name}_RECEIVE`,
+    data:json.events
+  }
+}
 
 
 
@@ -280,3 +285,16 @@ export function CRUDDelete(token,pathUrl,name) {
     }
     
 }
+
+
+export function GetEventList(token,pathUrl,name) {
+  return dispatch => {
+
+    return axios.get(`${API_URL}${pathUrl}`)
+      .then(response => response.data)
+      .then((json) =>dispatch(actionEventReceive(name,json)))
+      .catch( (error) => dispatch(actionReceiveResp500(name,error.response)) )
+  }
+
+}
+
