@@ -32,6 +32,7 @@ const SubCategoryTable = React.lazy(() => import('./containers/subcategory/Table
 const SubCategoryForm = React.lazy(() => import('./containers/subcategory/Forms'));
 
 const EventListForm = React.lazy(() => import('./containers/admin/event'));
+const HttpTraceListForm = React.lazy(() => import('./containers/admin/http_trace'));
 
 
 
@@ -64,6 +65,7 @@ const routes = [
  { path: ADMIN_PATH+'/subcategory/add', exact: true,  name: 'Add Sub Category', component: SubCategoryForm },
  { path: ADMIN_PATH+'/subcategory/edit/:id', exact: true,  name: 'Edit Sub Category', component: SubCategoryForm },
   { path: ADMIN_PATH+'/admin/event', exact: true,  name: 'Event', component: EventListForm },
+  { path: ADMIN_PATH+'/admin/httptrace', exact: true,  name: 'HTTP Trace', component: HttpTraceListForm },
 ];
 
 export default routes;

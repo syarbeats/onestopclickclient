@@ -7,13 +7,13 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux'
 
-import {eventFetch} from '../../actions/event_action.js'
+import {httpTraceFetch} from '../../actions/httptrace_action.js'
 
 const btnStyle = {
   margin:"10px"
 }
 
-class EventComponent extends Component {
+class HttpTraceComponent extends Component {
 
   constructor(props){
     super(props);
@@ -31,13 +31,13 @@ class EventComponent extends Component {
   componentDidMount() {
     const { dispatch} = this.props
 
-    dispatch(eventFetch(localStorage.getItem("token")))
+    dispatch(httpTraceFetch(localStorage.getItem("token")))
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.afterRequestDelete !== prevProps.afterRequestDelete && this.props.afterRequestDelete===true) {
       const { dispatch} = this.props
-      dispatch(eventFetch(localStorage.getItem("token")))
+      dispatch(httpTraceFetch(localStorage.getItem("token")))
     }
   }
 
@@ -71,11 +71,12 @@ class EventComponent extends Component {
                   <tr>
                     <th>TIME</th>
                     <th>USERNAME</th>
-                    <th>TYPE</th>
+                    <th>SESSION</th>
+                    <th>REQUEST METHOD</th>
+                    <th>URL</th>
                     <th>IP</th>
-                    <th>SESSION ID</th>
-                    <th>MESSAGE</th>
-                    <th>TYPE</th>
+                    <th>RESPONSE STATUS</th>
+                    <th>TIME TAKEN</th>
                     <th colspan="3"></th>
 
                   </tr>
@@ -86,11 +87,12 @@ class EventComponent extends Component {
                     <tr key={i}>
                       <td>{event.timestamp}</td>
                       <td>{event.principal}</td>
-                      <td>{event.type}</td>
-                      <td>{JSON.stringify(event.data.details.remoteAddress)}</td>
-                      <td>{event.data.details.sessionId}</td>
-                      <td>{event.data.message}</td>
-                      <td>{event.data.type}</td>
+                      <td>{event.session}</td>
+                      <td>{event.request.method}</td>
+                      <td>{event.request.uri}</td>
+                      <td>{event.request.remoteAddress}</td>
+                      <td>{event.response.status}</td>
+                      <td>{event.timeTaken}</td>
                       <td><Button className="btn btn-info" onClick={e=>this.handleEditClick()}>Show</Button></td>
                     </tr>
                   ))}
@@ -120,12 +122,12 @@ class EventComponent extends Component {
 function mapStateToProps(state) {
 
   return {
-    events:state.eventReducer.records,
+    events:state.httpTraceReducer.records,
     token:state.auth_reducer.token,
-    afterRequestDelete:state.eventReducer.afterRequestDelete
+    afterRequestDelete:state.httpTraceReducer.afterRequestDelete
   }
 }
 
-const Event = connect(mapStateToProps)(EventComponent);
+const HttpTrace = connect(mapStateToProps)(HttpTraceComponent);
 
-export default Event;
+export default HttpTrace;

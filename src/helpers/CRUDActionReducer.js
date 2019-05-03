@@ -132,7 +132,12 @@ function actionEventReceive(name,json){
   }
 }
 
-
+function actionHttpTraceReceive(name,json){
+  return {
+    type:`${name}_RECEIVE`,
+    data:json.traces
+  }
+}
 
 export function CRUDOffSave(name){
     return actionOffSave(name)
@@ -298,3 +303,13 @@ export function GetEventList(token,pathUrl,name) {
 
 }
 
+export function GetHttpTraceList(token,pathUrl,name) {
+  return dispatch => {
+
+    return axios.get(`${API_URL}${pathUrl}`)
+      .then(response => response.data)
+      .then((json) =>dispatch(actionHttpTraceReceive(name,json)))
+      .catch( (error) => dispatch(actionReceiveResp500(name,error.response)) )
+  }
+
+}
