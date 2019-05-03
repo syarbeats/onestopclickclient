@@ -124,6 +124,11 @@ class DefaultLayoutComponent extends Component {
               <i className="nav-icon cui-file"></i> HTTP Trace
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink to={ADMIN_PATH+'/admin/tokenList'} className="nav-link">
+              <i className="nav-icon cui-file"></i> Token List
+            </NavLink>
+          </li>
         </NavLink>
       </li>
 

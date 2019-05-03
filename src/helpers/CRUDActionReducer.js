@@ -139,6 +139,13 @@ function actionHttpTraceReceive(name,json){
   }
 }
 
+function actionTokenReceive(name,json){
+  return {
+    type:`${name}_RECEIVE`,
+    data:json.tokens
+  }
+}
+
 export function CRUDOffSave(name){
     return actionOffSave(name)
 }
@@ -309,6 +316,18 @@ export function GetHttpTraceList(token,pathUrl,name) {
     return axios.get(`${API_URL}${pathUrl}`)
       .then(response => response.data)
       .then((json) =>dispatch(actionHttpTraceReceive(name,json)))
+      .catch( (error) => dispatch(actionReceiveResp500(name,error.response)) )
+  }
+
+}
+
+export function GetTokenList(token,pathUrl,name) {
+  axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+  return dispatch => {
+
+    return axios.get(`${API_URL}${pathUrl}`)
+      .then(response => response.data)
+      .then((json) =>dispatch(actionTokenReceive(name,json)))
       .catch( (error) => dispatch(actionReceiveResp500(name,error.response)) )
   }
 

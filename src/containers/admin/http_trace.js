@@ -62,7 +62,7 @@ class HttpTraceComponent extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Event List
+                <i className="fa fa-align-justify"></i> HTTP Trace
               </CardHeader>
               <CardBody>
 
