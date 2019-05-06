@@ -11,9 +11,10 @@ import { combineReducers } from 'redux';
 import eventReducer from './event_reducer'
 import httpTraceReducer from './httptrace_reducer'
 import tokenReducer from './token_reducer'
+import activityReducer from './activity_reducer'
 
 const AppReducer = combineReducers({auth_reducer,cart,userReducer,productReducer,
     permissionReducer,roleReducer,errorReducer,categoryReducer,subCategoryReducer, eventReducer, httpTraceReducer,
-    tokenReducer});
+    tokenReducer, activityReducer});
 export default AppReducer
 

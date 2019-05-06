@@ -93,7 +93,7 @@ class HttpTraceComponent extends Component {
                       <td>{event.request.remoteAddress}</td>
                       <td>{event.response.status}</td>
                       <td>{event.timeTaken}</td>
-                      <td><Button className="btn btn-info" onClick={e=>this.handleEditClick()}>Show</Button></td>
+                      <td><Button className="btn btn-info" onClick="">PRINT</Button></td>
                     </tr>
                   ))}
                   </tbody>

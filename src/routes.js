@@ -35,6 +35,7 @@ const SubCategoryForm = React.lazy(() => import('./containers/subcategory/Forms'
 const EventListForm = React.lazy(() => import('./containers/admin/event'));
 const HttpTraceListForm = React.lazy(() => import('./containers/admin/http_trace'));
 const TokenListForm = React.lazy(() => import('./containers/admin/token_list'));
+const ActivityListForm = React.lazy(() => import('./containers/admin/activity_list'));
 
 
 const routes = [
@@ -70,6 +71,7 @@ const routes = [
   { path: ADMIN_PATH+'/admin/event', exact: true,  name: 'Event', component: EventListForm },
   { path: ADMIN_PATH+'/admin/httptrace', exact: true,  name: 'HTTP Trace', component: HttpTraceListForm },
   { path: ADMIN_PATH+'/admin/tokenList', exact: true,  name: 'Token List', component: TokenListForm },
+  { path: ADMIN_PATH+'/admin/activityList/:id', exact: true,  name: 'Activity List', component: ActivityListForm },
 ];
 
 export default routes;

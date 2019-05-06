@@ -7,13 +7,13 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux'
 
-import {tokenFetch} from '../../actions/tokenlist_action.js'
+import {activityFetch} from '../../actions/activitylist_action.js'
 
 const btnStyle = {
   margin:"10px"
 }
 
-class TokenListComponent extends Component {
+class ActivityListComponent extends Component {
 
   constructor(props){
     super(props);
@@ -29,17 +29,22 @@ class TokenListComponent extends Component {
   }
 
   componentDidMount() {
-    const { dispatch} = this.props
+    //const { dispatch} = this.props
+    const {match:{params},dispatch} = this.props
+    const {id} = params;
 
-    dispatch(tokenFetch(localStorage.getItem("token")))
+    if(id){
+      dispatch(activityFetch(localStorage.getItem("token"), id))
+    }
+
   }
 
-  componentDidUpdate(prevProps) {
+  /*componentDidUpdate(prevProps) {
     if (this.props.afterRequestDelete !== prevProps.afterRequestDelete && this.props.afterRequestDelete===true) {
       const { dispatch} = this.props
-      dispatch(tokenFetch(localStorage.getItem("token")))
+      dispatch(activityFetch(localStorage.getItem("token")))
     }
-  }
+  }*/
 
 
   handleShowClick(id){
@@ -54,7 +59,7 @@ class TokenListComponent extends Component {
 
 
   render() {
-    const {tokens} = this.props;
+    const {activities} = this.props;
 
     return (
       <div className="animated fadeIn">
@@ -62,7 +67,7 @@ class TokenListComponent extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Token List
+                <i className="fa fa-align-justify"></i> Activity List
               </CardHeader>
               <CardBody>
 
@@ -70,22 +75,20 @@ class TokenListComponent extends Component {
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>USERNAME</th>
-                    <th>LOGIN TIME</th>
-                    <th>TOKEN</th>
+                    <th>ACTIVITY</th>
+                    <th>TIME</th>
                     <th colspan="3"></th>
 
                   </tr>
                   </thead>
                   <tbody>
 
-                  { tokens.map((token,i)=>(
+                  { activities.map((activity,i)=>(
                     <tr key={i}>
-                      <td>{token.id}</td>
-                      <td>{token.username}</td>
-                      <td>{token.time}</td>
-                      <td>{token.token}</td>
-                      <td><Button className="btn btn-info" onClick={e=>this.handleShowClick(token.id)}>Show Activity</Button></td>
+                      <td>{activity.id}</td>
+                      <td>{activity.activity}</td>
+                      <td>{activity.time}</td>
+                      <td><Button className="btn btn-info" onClick={e=>this.handleShowClick(activity.id)}>PRINT</Button></td>
                     </tr>
                   ))}
                   </tbody>
@@ -103,12 +106,12 @@ class TokenListComponent extends Component {
 function mapStateToProps(state) {
 
   return {
-    tokens:state.tokenReducer.records,
+    activities:state.activityReducer.records,
     token:state.auth_reducer.token,
-    afterRequestDelete:state.tokenReducer.afterRequestDelete
+    afterRequestDelete:state.activityReducer.afterRequestDelete
   }
 }
 
-const Token_list = connect(mapStateToProps)(TokenListComponent);
+const ActivityList = connect(mapStateToProps)(ActivityListComponent);
 
-export default Token_list;
+export default ActivityList;
