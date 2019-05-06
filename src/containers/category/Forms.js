@@ -11,7 +11,6 @@ import {
   Form,
   FormGroup,
   FormText,
-
   Input,
   Label,
   Row,
@@ -34,7 +33,7 @@ class FormsComponent extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      formControls:Tools.generateFields(['categoryName','categoryDescription'])
+      formControls:Tools.generateFields(['categoryName','categoryDescription','parent'])
     };
   }
 
@@ -43,7 +42,10 @@ class FormsComponent extends Component {
     const {id} = params;
   
     if(id){
-     dispatch(category_action.readOne(localStorage.getItem("token"),id))
+   //  dispatch(category_action.readOne(localStorage.getItem("token"),id))
+    // dispatch(category_action.fetch(localStorage.getItem("token")))
+    dispatch(category_action.readOneAndFetchParent(localStorage.getItem("token"),id))
+    
     }
 
 
@@ -73,8 +75,10 @@ class FormsComponent extends Component {
 
   handleSubmit(event) {
     const {dispatch} = this.props
-    dispatch(category_action.saveJson(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
-    event.preventDefault();
+   // dispatch(category_action.saveJson(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
+   dispatch(category_action.saveWithParent(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
+   
+   event.preventDefault();
   }
 
   componentWillReceiveProps(prevProps) {
@@ -95,7 +99,7 @@ class FormsComponent extends Component {
   }
 
   render() {
-    const {successSave,dispatch} = this.props
+    const {successSave,dispatch,parents} = this.props
    
     if (successSave === true) {
       dispatch(category_action.saveOff())
@@ -137,6 +141,22 @@ class FormsComponent extends Component {
                       <Input type="text" id="description-input" name="categoryDescription"  onChange={this.handleChange}  value={this.state.formControls.categoryDescription.value} />
                    </Col>
                   </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="parent-input">Parent</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                    <select id="parent-input" name="parent_id" value={this.state.formControls.parent.value} 
+                    onChange={this.handleChange}>
+                    <option key="0" value="0">---</option>
+                      {
+                        parents.map((category,id)=>(
+                          <option key={id} value={category.id}>{category.categoryName}</option>
+                        ))
+                      }
+                      </select>
+                   </Col>
+                  </FormGroup>
 
 
                 </Form>
@@ -162,7 +182,13 @@ class FormsComponent extends Component {
 function mapStateToProps(state){
   return {
     successSave:state.categoryReducer.successSave,
-    record:state.categoryReducer.record
+    record:state.categoryReducer.record,
+    parents:state.categoryReducer.records.filter((category)=>{
+       console.log(category.id);
+       console.log(state.categoryReducer.record.id)
+        return category.id !== state.categoryReducer.record.id
+       
+    })
   }
 }
 
