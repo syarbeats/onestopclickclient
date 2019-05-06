@@ -34,7 +34,7 @@ class product_actionBase extends BaseAction{
  
         return dispatch => {
     
-            return axios.get(`${API_URL}/api/v1/product/${id}/categories`)
+            return axios.get(`${API_URL}/api/v1/product/${id}/subcategories`)
             .then(response => response.data)
             .then((json) =>dispatch(actionCategoriesReceive(json)))
         }
@@ -45,7 +45,7 @@ class product_actionBase extends BaseAction{
  
         return dispatch => {
     
-            return axios.post(`${API_URL}/api/v1/product/${roleId}/categories/${permissionId}`)
+            return axios.post(`${API_URL}/api/v1/product/${roleId}/subcategories/${permissionId}`)
             .then(response => response.data)
             .then((json) =>dispatch(actionAddCategoriesReceive(json)))
         }
@@ -56,7 +56,7 @@ class product_actionBase extends BaseAction{
  
         return dispatch => {
     
-            return axios.delete(`${API_URL}/api/v1/product/${roleId}/categories/${permissionId}`)
+            return axios.delete(`${API_URL}/api/v1/product/${roleId}/subcategories/${permissionId}`)
             .then(response => response.data)
             .then((json) =>dispatch(actionDeleteCategoriesReceive(json)))
         }

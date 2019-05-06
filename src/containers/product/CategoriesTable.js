@@ -8,7 +8,7 @@ import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem,
 
 
   import product_action from '../../actions/product_action'
-  import category_action from '../../actions/category_action'
+  import subcategory_action from '../../actions/subcategory_action'
 
 const btnStyle = {
   margin:"10px"
@@ -39,7 +39,7 @@ class CategoriesTableComponent extends Component {
       roleId:id
     })
     dispatch(product_action.readCategories(localStorage.getItem("token"),id))
-    dispatch(category_action.fetch(localStorage.getItem("token")))
+    dispatch(subcategory_action.fetch(localStorage.getItem("token")))
   }
   submitCategory(){
     const { dispatch} = this.props
@@ -138,8 +138,8 @@ class CategoriesTableComponent extends Component {
                   { categories.map((rec,i)=>(
                       <tr key={i} >
                         <td>{rec.id}</td>
-                        <td>{rec.categoryName}</td>
-                        <td>{rec.categoryDescription}</td>
+                        <td>{rec.subCategoryName}</td>
+                        <td>{rec.subCategoryDescription}</td>
                         <td><Input className="form-check-input" type="checkbox" onClick={e=>this.handleChooseCategory(rec.id,e)} /></td>
                     </tr>
                   ))}
@@ -179,8 +179,8 @@ class CategoriesTableComponent extends Component {
                   { categoriesByProduct.map((rec,i)=>(
                       <tr key={i}>
                         <td>{rec.id}</td>
-                        <td>{rec.categoryName}</td>
-                        <td>{rec.categoryDescription}</td>
+                        <td>{rec.subCategoryName}</td>
+                        <td>{rec.subCategoryDescription}</td>
                         {/* <td><Input className="form-check-input" type="checkbox" onClick={e=>this.handleChooseAcquiredCategory(rec.id,e)} /></td> */}
                         <td><Checkbox recId={rec.id} handleChooseAcquiredCategory={this.handleChooseAcquiredCategory} /></td>
                     
@@ -205,7 +205,7 @@ function mapStateToProps(state) {
     token:state.auth_reducer.token,
     afterRequestDelete:state.productReducer.afterRequestDelete,
     categoriesByProduct:state.productReducer.categoriesByProduct,
-    categories:state.categoryReducer.records.filter(function(perms){
+    categories:state.subCategoryReducer.records.filter(function(perms){
       let found = state.productReducer.categoriesByProduct.find(function(element) {
         return element.id === perms.id;
       })

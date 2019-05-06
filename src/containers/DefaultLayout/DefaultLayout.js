@@ -53,6 +53,10 @@ class DefaultLayoutComponent extends Component {
     
   }
 
+  testAClick(e){
+    e.preventDefault();
+  }
+
   render() {
 
   
@@ -85,12 +89,12 @@ class DefaultLayoutComponent extends Component {
        </NavLink>
       
       </li>
-      {/* <li className="nav-item">
+      <li className="nav-item">
       <NavLink to={ADMIN_PATH+'/subcategory'} className="nav-link">
        <i className="nav-icon cui-file"></i> Sub Category Management
        </NavLink>
       
-      </li> */}
+      </li>
       <li className="nav-item">
       <NavLink to={ADMIN_PATH+'/product'} className="nav-link">
        <i className="nav-icon cui-file"></i> Product Management
