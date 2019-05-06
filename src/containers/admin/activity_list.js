@@ -88,7 +88,7 @@ class ActivityListComponent extends Component {
                       <td>{activity.id}</td>
                       <td>{activity.activity}</td>
                       <td>{activity.time}</td>
-                      <td><Button className="btn btn-info" onClick={e=>this.handleShowClick(activity.id)}>Show</Button></td>
+                      <td><Button className="btn btn-info" onClick={e=>this.handleShowClick(activity.id)}>PRINT</Button></td>
                     </tr>
                   ))}
                   </tbody>

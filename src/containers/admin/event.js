@@ -91,7 +91,7 @@ class EventComponent extends Component {
                       <td>{event.data.details.sessionId}</td>
                       <td>{event.data.message}</td>
                       <td>{event.data.type}</td>
-                      <td><Button className="btn btn-info" onClick={e=>this.handleEditClick()}>Show</Button></td>
+                      <td><Button className="btn btn-info" onClick="">PRINT</Button></td>
                     </tr>
                   ))}
                   </tbody>

@@ -85,7 +85,7 @@ class TokenListComponent extends Component {
                       <td>{token.username}</td>
                       <td>{token.time}</td>
                       <td>{token.token}</td>
-                      <td><Button className="btn btn-info" onClick={e=>this.handleShowClick(token.id)}>Show</Button></td>
+                      <td><Button className="btn btn-info" onClick={e=>this.handleShowClick(token.id)}>Show Activity</Button></td>
                     </tr>
                   ))}
                   </tbody>
