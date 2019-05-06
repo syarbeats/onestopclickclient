@@ -105,11 +105,33 @@ class DefaultLayoutComponent extends Component {
       </li> */}
       <li className="nav-item">
       <NavLink to={ADMIN_PATH+'/role'} className="nav-link">
-       <i className="nav-icon cui-file"></i> Role Management
-       </NavLink>
-      
+        <i className="nav-icon cui-file"></i> Role Management
+      </NavLink>
+
+    </li>
+
+
+      <li className="nav-item">
+        <NavLink to={ADMIN_PATH+'/dashboard'} className="nav-link">
+          <i className="nav-icon cui-file"></i> Admin Monitoring
+          <li className="nav-item">
+            <NavLink to={ADMIN_PATH+'/admin/event'} className="nav-link">
+              <i className="nav-icon cui-file"></i> Event
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to={ADMIN_PATH+'/admin/httptrace'} className="nav-link">
+              <i className="nav-icon cui-file"></i> HTTP Trace
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to={ADMIN_PATH+'/admin/tokenList'} className="nav-link">
+              <i className="nav-icon cui-file"></i> Token List
+            </NavLink>
+          </li>
+        </NavLink>
       </li>
-     
+
       
     </ul>
   </nav>
