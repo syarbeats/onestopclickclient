@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import subcategory_action from '../../actions/subcategory_action'
 import { Redirect} from 'react-router-dom';
 import {ADMIN_PATH} from '../../config/Config'
+import category_action from '../../actions/category_action'
 
 class FormsComponent extends Component {
   constructor(props) {
@@ -34,19 +35,32 @@ class FormsComponent extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      formControls:Tools.generateFields(['subCategoryName','subCategoryDescription'])
+      // formControls:Tools.generateFields(['subCategoryName','subCategoryDescription','category_id'])
+      formControls:{
+        subCategoryName:{value:''},
+        subCategoryDescription:{value:''},
+        category_id:{value:0}
+      },
+      subCategoryId:0
     };
   }
 
   componentDidMount(){
     const {match:{params},dispatch} = this.props
     const {id} = params;
-  
+    
+    dispatch(category_action.fetch(localStorage.getItem("token")))
     if(id){
-     dispatch(subcategory_action.readOne(localStorage.getItem("token"),id))
+      this.setState({
+        subCategoryId:id
+       })
+   dispatch(subcategory_action.readOne(localStorage.getItem("token"),id))
+     
+     
+    }else{
+      dispatch(subcategory_action.resetRecord())
+     
     }
-
-
   
   }
 
@@ -71,21 +85,63 @@ class FormsComponent extends Component {
     
   }
 
-  handleSubmit(event) {
-    const {dispatch} = this.props
-    dispatch(subcategory_action.saveJson(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
-    event.preventDefault();
+  selectChange=event=>{
+    this.setState({
+      formControls:{
+        ...this.state.formControls,
+        category_id:{
+          value:event.target.value
+        }
+      }
+    });
   }
 
+  handleSubmit(event) {
+    const {dispatch} = this.props
+    event.preventDefault();
+  if(this.state.subCategoryId > 0){
+    dispatch(subcategory_action.updateWithCategory(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls),this.state.formControls.category_id.value))
+    
+  }else{
+    let subCategory = Tools.objectFormat(this.state.formControls);
+    if(this.state.formControls.category_id.value > 0){
+      subCategory = {
+        ...subCategory,
+        category:{
+          id:this.state.formControls.category_id.value
+        }
+      }
+    }else{
+      subCategory = {
+        ...subCategory,
+        category:null
+      }
+    }
+    
+     dispatch(subcategory_action.saveJson(localStorage.getItem("token"),subCategory));
+ 
+  }
+
+  }
+
+
   componentWillReceiveProps(prevProps) {
+  
     let record = prevProps.record
+  
    
-    if(record){
+    if(Object.keys(record).length > 0){
+     
       let tempRecord = {}
       let keys = Object.keys(record);
       keys.map((key)=>{
         tempRecord[key] = {value:record[key]}
       })
+     
+      if(record.category){
+        tempRecord['category_id'] = {value:record.category.id}
+      }
+     
 
       this.setState({
         formControls:tempRecord
@@ -93,9 +149,10 @@ class FormsComponent extends Component {
     }
     
   }
+  
 
   render() {
-    const {successSave,dispatch} = this.props
+    const {successSave,dispatch,categories} = this.props
    
     if (successSave === true) {
       dispatch(subcategory_action.saveOff())
@@ -138,6 +195,25 @@ class FormsComponent extends Component {
                    </Col>
                   </FormGroup>
 
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="description-input">Category</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                   
+                      {/* <Input type="text" id="description-input" name="subCategoryDescription"  onChange={this.handleChange}  value={this.state.formControls.subCategoryDescription.value} /> */}
+                      <select id="parent-input" name="category_id" value={this.state.formControls.category_id.value} 
+                    onChange={this.selectChange}>
+                    <option key="0" value="0">---</option>
+                      {
+                        categories.map((category,id)=>(
+                          <option key={id} value={category.id}>{category.categoryName}</option>
+                        ))
+                      }
+                      </select>
+                   </Col>
+                  </FormGroup>
+
 
                 </Form>
               </CardBody>
@@ -160,9 +236,25 @@ class FormsComponent extends Component {
 }
 
 function mapStateToProps(state){
+  let subCategory = state.subCategoryReducer.record;
+
+  if(Object.keys(subCategory).length === 0 && subCategory.constructor === Object){
+    
+  }else{
+    if(subCategory.id > 0 ){
+      if(!subCategory.hasOwnProperty('category_id')){
+        subCategory['category_id'] = {value:0};
+      }
+    }
+    
+  }
+
+
+ 
   return {
     successSave:state.subCategoryReducer.successSave,
-    record:state.subCategoryReducer.record
+    record:subCategory,
+    categories:state.categoryReducer.records
   }
 }
 

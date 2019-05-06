@@ -42,9 +42,9 @@ class FormsComponent extends Component {
     const {id} = params;
   
     if(id){
-   //  dispatch(category_action.readOne(localStorage.getItem("token"),id))
+     dispatch(category_action.readOne(localStorage.getItem("token"),id))
     // dispatch(category_action.fetch(localStorage.getItem("token")))
-    dispatch(category_action.readOneAndFetchParent(localStorage.getItem("token"),id))
+    // dispatch(category_action.readOneAndFetchParent(localStorage.getItem("token"),id))
     
     }
 
@@ -75,8 +75,8 @@ class FormsComponent extends Component {
 
   handleSubmit(event) {
     const {dispatch} = this.props
-   // dispatch(category_action.saveJson(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
-   dispatch(category_action.saveWithParent(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
+    dispatch(category_action.saveJson(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
+  //  dispatch(category_action.saveWithParent(localStorage.getItem("token"),Tools.objectFormat(this.state.formControls)))
    
    event.preventDefault();
   }
@@ -141,7 +141,7 @@ class FormsComponent extends Component {
                       <Input type="text" id="description-input" name="categoryDescription"  onChange={this.handleChange}  value={this.state.formControls.categoryDescription.value} />
                    </Col>
                   </FormGroup>
-                  <FormGroup row>
+                  {/* <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="parent-input">Parent</Label>
                     </Col>
@@ -156,7 +156,7 @@ class FormsComponent extends Component {
                       }
                       </select>
                    </Col>
-                  </FormGroup>
+                  </FormGroup> */}
 
 
                 </Form>
@@ -183,12 +183,12 @@ function mapStateToProps(state){
   return {
     successSave:state.categoryReducer.successSave,
     record:state.categoryReducer.record,
-    parents:state.categoryReducer.records.filter((category)=>{
-       console.log(category.id);
-       console.log(state.categoryReducer.record.id)
-        return category.id !== state.categoryReducer.record.id
+    // parents:state.categoryReducer.records.filter((category)=>{
+    //    console.log(category.id);
+    //    console.log(state.categoryReducer.record.id)
+    //     return category.id !== state.categoryReducer.record.id
        
-    })
+    // })
   }
 }
 

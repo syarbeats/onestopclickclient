@@ -103,9 +103,9 @@ class TablesComponent extends Component {
                     <th>ID</th>
                     <th>NAME</th>
                     <th>DESCRIPTION</th>
-                    <th>PARENT</th>
-                    <th></th>
-                    <th></th>
+                    {/* <th>PARENT</th> */}
+                    <th colSpan="2"></th>
+                 
                   </tr>
                   </thead>
                   <tbody>
@@ -115,7 +115,7 @@ class TablesComponent extends Component {
                         <td>{rec.id}</td>
                         <td>{rec.categoryName}</td>
                         <td>{rec.categoryDescription}</td>
-                        <td>{rec.parent?rec.parent.categoryName:''}</td>
+                        {/* <td>{rec.parent?rec.parent.categoryName:''}</td> */}
                         <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(rec.id)}>Edit</Button></td>
                         <td><Button className="btn btn-info" onClick={e=>this.handleDeleteClick(rec.id)}>Delete</Button></td>
                     </tr>

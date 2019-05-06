@@ -59,7 +59,13 @@ export function actionSwitcher(name,state,action){
           ...state,
           receivedResponse500:true
         }
+    }else if(action.type===`${name}_RESET_RECORD`){
+      return {
+        ...state,
+        record:{}
+      }
     }
+  
 
 
     return state
@@ -157,6 +163,8 @@ export function CRUDOffEdit(name){
 export function CRUDOffDelete(name){
     return actionOffDelete(name)
 }
+
+
 
 export function CRUDRead(token,pathUrl,name) {
 
@@ -297,6 +305,7 @@ export function CRUDDelete(token,pathUrl,name) {
     }
     
 }
+
 
 
 export function GetEventList(token,pathUrl,name) {
