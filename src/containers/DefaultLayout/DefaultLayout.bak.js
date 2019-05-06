@@ -72,8 +72,94 @@ class DefaultLayoutComponent extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} />
-            
+            {/* <AppSidebarNav navConfig={navigation} {...this.props} /> */}
+            <div className="sidebar">
+  <nav className="sidebar-nav">
+    <ul className="nav">
+     
+      <li className="nav-item">
+      <NavLink to={ADMIN_PATH+"/users"} className="nav-link">
+       <i className="nav-icon cui-file"></i> Users
+       </NavLink>
+      
+      </li>
+      <li className="nav-item">
+      <NavLink to={ADMIN_PATH+'/category'} className="nav-link">
+       <i className="nav-icon cui-file"></i> Category Management
+       </NavLink>
+      
+      </li>
+      <li className="nav-item">
+      <NavLink to={ADMIN_PATH+'/subcategory'} className="nav-link">
+       <i className="nav-icon cui-file"></i> Sub Category Management
+       </NavLink>
+      
+      </li>
+      <li className="nav-item">
+      <NavLink to={ADMIN_PATH+'/product'} className="nav-link">
+       <i className="nav-icon cui-file"></i> Product Management
+       </NavLink>
+      
+      </li>
+      {/* <li className="nav-item">
+      <NavLink to={ADMIN_PATH+'/permission'} className="nav-link">
+       <i className="nav-icon cui-file"></i> Permission Management
+       </NavLink>
+      
+      </li> */}
+      <li className="nav-item">
+      <NavLink to={ADMIN_PATH+'/role'} className="nav-link">
+        <i className="nav-icon cui-file"></i> Role Management
+      </NavLink>
+
+    </li>
+
+{/* // test  */}
+     <li className="nav-item nav-dropdown">
+        <a className="nav-link nav-dropdown-toggle">
+          <i className="nav-icon cui-puzzle"></i> Nav dropdown
+        </a>
+        <ul className="nav-dropdown-items">
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              <i className="nav-icon cui-puzzle"></i> Nav dropdown item
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              <i className="nav-icon cui-puzzle"></i> Nav dropdown item
+            </a>
+          </li>
+        </ul>
+      </li>
+{/* // test  */}
+
+      <li className="nav-item">
+        <NavLink to={ADMIN_PATH+'/dashboard'} className="nav-link">
+          <i className="nav-icon cui-file"></i> Admin Monitoring
+          <li className="nav-item">
+            <NavLink to={ADMIN_PATH+'/admin/event'} className="nav-link">
+              <i className="nav-icon cui-file"></i> Event
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to={ADMIN_PATH+'/admin/httptrace'} className="nav-link">
+              <i className="nav-icon cui-file"></i> HTTP Trace
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to={ADMIN_PATH+'/admin/tokenList'} className="nav-link">
+              <i className="nav-icon cui-file"></i> Token List
+            </NavLink>
+          </li>
+        </NavLink>
+      </li>
+
+      
+    </ul>
+  </nav>
+
+</div>
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />
