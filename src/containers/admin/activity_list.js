@@ -67,7 +67,7 @@ class ActivityListComponent extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Token List
+                <i className="fa fa-align-justify"></i> Activity List
               </CardHeader>
               <CardBody>
 
