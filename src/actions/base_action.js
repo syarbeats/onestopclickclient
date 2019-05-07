@@ -38,6 +38,14 @@ class BaseAction{
             type:`${this.actionName}_RESET_RECORD`
         }
     }
+
+    setFlag(propName,value){
+        return {
+            type:`${this.actionName}_PROP_SETTER`,
+            propName,
+            value
+        }
+    }
   
 }
 

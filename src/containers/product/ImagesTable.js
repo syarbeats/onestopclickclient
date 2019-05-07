@@ -11,7 +11,9 @@ const btnStyle = {
   margin:"10px"
 }
 
-class TablesComponent extends Component {
+const urlPathPrefix = '/adminpanel/product'
+
+class ImagesTableComponent extends Component {
 
   constructor(props){
     super(props)
@@ -24,19 +26,27 @@ class TablesComponent extends Component {
     this.handleImagesClick = this.handleImagesClick.bind(this)
     this.state = {
       modal:false,
-      idToDelete:0
+      idToDelete:0,
+      productId:0
     }
   }
 
   handleAddUserClick(e){
+    const {dispatch} = this.props
     e.preventDefault()
-    this.props.history.push("/adminpanel/product/add");
+  
+    dispatch(product_action.setFlag('afterUploadMedia',false))
+    this.props.history.push(`${urlPathPrefix}/${this.state.productId}/add-images`);
   }
 
   componentDidMount() {
-    const { dispatch} = this.props
+    const {match:{params},dispatch} = this.props
+    const {id} = params
+    this.setState({
+      productId:id
+    })
    
-    dispatch(product_action.fetch(localStorage.getItem("token")))
+    dispatch(product_action.readDetailsMedia(localStorage.getItem("token"),id))
   }
 
 
@@ -51,7 +61,7 @@ class TablesComponent extends Component {
   handleEditClick(id){
     
     //e.preventDefault()
-    this.props.history.push(`/adminpanel/product/edit/${id}`);
+    this.props.history.push(`${urlPathPrefix}/edit/${id}`);
 
   }
   handleDeleteClick(id){
@@ -77,22 +87,22 @@ class TablesComponent extends Component {
     dispatch(product_action.delete(localStorage.getItem("token"),this.state.idToDelete))
   }
   handleCategoriesClick(id){
-    this.props.history.push(`/adminpanel/product/${id}/categories`);
+    this.props.history.push(`${urlPathPrefix}/${id}/categories`);
   }
 
   handleImagesClick(id){
-    this.props.history.push(`/adminpanel/product/${id}/images`);
+    this.props.history.push(`${urlPathPrefix}/${id}/images`);
   }
 
   render() {
-    const {records} = this.props
+    const {detailsMedia} = this.props
     return (
       <div className="animated fadeIn">
         
         <Row style={btnStyle}>
               
                 <Col xs="6">
-                          <Button color="primary" className="px-4" onClick={this.handleAddUserClick}>Add New Product</Button>
+                          <Button color="primary" className="px-4" onClick={this.handleAddUserClick}>Add New Media</Button>
                         </Col>
             </Row>
         
@@ -101,7 +111,7 @@ class TablesComponent extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Product List
+                <i className="fa fa-align-justify"></i> Media List
               </CardHeader>
               <CardBody>
               
@@ -109,26 +119,20 @@ class TablesComponent extends Component {
                   <thead>
                   <tr>
                     <th>ID</th>
-                    <th>NAME</th>
-                    <th>PRICE</th>
-                    <th>DESCRIPTION</th>
-                    <th>IMAGES</th>
-                    <th></th>
-                    <th></th>
+                    <th>FILE</th>
+                    <th>TYPE</th>
+                   
                     <th></th>
                   </tr>
                   </thead>
                   <tbody>
               
-                  { records.map((rec,i)=>(
+                  { detailsMedia.map((rec,i)=>(
                       <tr key={i}>
                         <td>{rec.id}</td>
-                        <td>{rec.name}</td>
-                        <td>{rec.price}</td>
-                        <td>{rec.description}</td>
-                        <td><Button className="btn btn-info" onClick={e=>this.handleImagesClick(rec.id)}>Images</Button></td>
-                        <td><Button className="btn btn-info" onClick={e=>this.handleCategoriesClick(rec.id)}>Categories</Button></td>
-                        <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(rec.id)}>Edit</Button></td>
+                        <td><img src={rec.productDetailFileName} width="100" height="100" /></td>
+                        <td>{rec.productDetailType}</td>
+                
                         <td><Button className="btn btn-info" onClick={e=>this.handleDeleteClick(rec.id)}>Delete</Button></td>
                     </tr>
                   ))}
@@ -159,12 +163,13 @@ class TablesComponent extends Component {
 function mapStateToProps(state) {
   
   return {
+    detailsMedia:state.productReducer.detailsMedia,
     records:state.productReducer.records,
     token:state.auth_reducer.token,
     afterRequestDelete:state.productReducer.afterRequestDelete
   }
 }
 
-const Tables = connect(mapStateToProps)(TablesComponent);
+const ImagesTable = connect(mapStateToProps)(ImagesTableComponent);
 
-export default Tables;
+export default ImagesTable;

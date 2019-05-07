@@ -64,6 +64,11 @@ export function actionSwitcher(name,state,action){
         ...state,
         record:{}
       }
+    }else if(action.type===`${name}_PROP_SETTER`){
+      return {
+        ...state,
+        [action.propName]:action.value
+      }
     }
   
 

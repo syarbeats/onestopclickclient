@@ -16,6 +16,8 @@ const UserEdit = React.lazy(() => import('./containers/user/UserEdit'));
 const ProductTable = React.lazy(() => import('./containers/product/Tables'));
 const ProductForm = React.lazy(() => import('./containers/product/Forms'));
 const CategoriesTable = React.lazy(() => import('./containers/product/CategoriesTable'));
+const ImagesTable = React.lazy(() => import('./containers/product/ImagesTable'));
+const ImagesForm = React.lazy(() => import('./containers/product/ImagesForm'));
 
 const PermissionTable = React.lazy(() => import('./containers/permission/Tables'));
 const PermissionForm = React.lazy(() => import('./containers/permission/Forms'));
@@ -38,6 +40,8 @@ const TokenListForm = React.lazy(() => import('./containers/admin/token_list'));
 const ActivityListForm = React.lazy(() => import('./containers/admin/activity_list'));
 
 
+
+
 const routes = [
   //  { path: '/adminpanel/das', exact: true, name: 'Home' },
   { path: ADMIN_PATH+'/dashboard', name: 'Dashboard', component: Dashboard },
@@ -54,6 +58,8 @@ const routes = [
  { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
  { path: ADMIN_PATH+'/product/edit/:id', exact: true,  name: 'Edit Product', component: ProductForm },
  { path: ADMIN_PATH+'/product/:id/categories', exact: true,  name: 'Manage Categories', component: CategoriesTable },
+ { path: ADMIN_PATH+'/product/:id/images', exact: true,  name: 'Product Medias', component: ImagesTable },
+ { path: ADMIN_PATH+'/product/:id/add-images', exact: true,  name: 'Add Product Media', component: ImagesForm },
  { path: ADMIN_PATH+'/permission', exact: true,  name: 'Permissions', component: PermissionTable },
  { path: ADMIN_PATH+'/permission/add', exact: true,  name: 'Add Permission', component: PermissionForm },
  { path: ADMIN_PATH+'/permission/edit/:id', exact: true,  name: 'Edit Permission', component: PermissionForm },
@@ -75,6 +81,7 @@ const routes = [
 
   { path: ADMIN_PATH+'/promoted-product', exact: true,  name: 'Products', component: ProductTable },
   { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
+  
 ];
 
 export default routes;
