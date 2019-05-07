@@ -65,6 +65,11 @@ export default {
           url: ADMIN_PATH+'/product',
           icon: 'icon-briefcase',
         },
+        {
+          name: 'Promoted Product',
+          url: ADMIN_PATH+'/promoted-product',
+          icon: 'icon-briefcase',
+        },
       ],
     },
     {

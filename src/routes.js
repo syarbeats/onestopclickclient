@@ -72,6 +72,9 @@ const routes = [
   { path: ADMIN_PATH+'/admin/httptrace', exact: true,  name: 'HTTP Trace', component: HttpTraceListForm },
   { path: ADMIN_PATH+'/admin/tokenList', exact: true,  name: 'Token List', component: TokenListForm },
   { path: ADMIN_PATH+'/admin/activityList/:id', exact: true,  name: 'Activity List', component: ActivityListForm },
+
+  { path: ADMIN_PATH+'/promoted-product', exact: true,  name: 'Products', component: ProductTable },
+  { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
 ];
 
 export default routes;
