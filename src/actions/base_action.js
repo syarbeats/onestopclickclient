@@ -1,4 +1,4 @@
-import {CRUDRead, CRUDSave, CRUDSaveJson, CRUDOffSave,CRUDReadOne,CRUDDelete,CRUDOffDelete} from '../helpers/CRUDActionReducer'
+import {CRUDRead, CRUDSave, CRUDSaveJson, CRUDOffSave,CRUDReadOne,CRUDDelete,CRUDOffDelete,CRUDResetForm} from '../helpers/CRUDActionReducer'
 
 
 class BaseAction{
@@ -33,6 +33,12 @@ class BaseAction{
     deleteOff(){
         return CRUDOffDelete(this.actionName)
     }
+    resetRecord(){
+        return {
+            type:`${this.actionName}_RESET_RECORD`
+        }
+    }
+  
 }
 
 export default BaseAction

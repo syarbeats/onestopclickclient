@@ -103,6 +103,7 @@ class TablesComponent extends Component {
                     <th>ID</th>
                     <th>NAME</th>
                     <th>DESCRIPTION</th>
+                    <th>CATEGORY</th>
                     <th></th>
                     <th></th>
                   </tr>
@@ -114,6 +115,7 @@ class TablesComponent extends Component {
                         <td>{rec.id}</td>
                         <td>{rec.subCategoryName}</td>
                         <td>{rec.subCategoryDescription}</td>
+                        <td>{rec.category?rec.category.categoryName:''}</td>
                         <td><Button className="btn btn-info" onClick={e=>this.handleEditClick(rec.id)}>Edit</Button></td>
                         <td><Button className="btn btn-info" onClick={e=>this.handleDeleteClick(rec.id)}>Delete</Button></td>
                     </tr>
