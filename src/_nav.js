@@ -94,11 +94,7 @@ export default {
         },
       ],
     },
-    {
-      name: 'Test',
-      url: ADMIN_PATH+'/test',
-      icon: 'icon-briefcase',
-    },
+
     // {
     //   name: 'Disabled',
     //   url: '/dashboard',
