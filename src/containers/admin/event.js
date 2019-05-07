@@ -43,7 +43,7 @@ class EventComponent extends Component {
 
 
   handleShowClick(id){
-    this.props.history.push(`/adminpanel/users/edit/${id}`);
+    this.props.history.push(``);
   }
 
   toggle() {
@@ -96,17 +96,6 @@ class EventComponent extends Component {
                   ))}
                   </tbody>
                 </Table>
-
-                <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className}>
-                  <ModalHeader toggle={this.toggle}>Warning</ModalHeader>
-                  <ModalBody>
-                    Are you sure to delete this record?
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="primary" onClick={this.handelConfirmDelete}>Yes</Button>{' '}
-                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                  </ModalFooter>
-                </Modal>
               </CardBody>
             </Card>
           </Col>
