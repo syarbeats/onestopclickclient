@@ -70,6 +70,11 @@ export default {
           url: ADMIN_PATH+'/promoted-product',
           icon: 'icon-briefcase',
         },
+        // {
+        //   name: 'Review / Rate',
+        //   url: ADMIN_PATH+'/product-review',
+        //   icon: 'icon-briefcase',
+        // },
       ],
     },
     {
