@@ -1,5 +1,6 @@
 import React from 'react';
 import {ADMIN_PATH} from './config/Config'
+import OAuthRedirectHandler from "./containers/admin/OAuthRedirectHandler";
 
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 
@@ -38,8 +39,9 @@ const EventListForm = React.lazy(() => import('./containers/admin/event'));
 const HttpTraceListForm = React.lazy(() => import('./containers/admin/http_trace'));
 const TokenListForm = React.lazy(() => import('./containers/admin/token_list'));
 const ActivityListForm = React.lazy(() => import('./containers/admin/activity_list'));
-
-
+/*
+const OAuth2RedirectHandler = React.lazy(() => import('./containers/admin/OAuthRedirectHandler'));
+*/
 
 
 const routes = [
@@ -81,7 +83,7 @@ const routes = [
 
   { path: ADMIN_PATH+'/promoted-product', exact: true,  name: 'Products', component: ProductTable },
   { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
-  
+  /*{ path: '/oauth2/:responToken', exact: true,  name: 'OAuth2RedirectHandler', component: OAuth2RedirectHandler },*/
 ];
 
 export default routes;

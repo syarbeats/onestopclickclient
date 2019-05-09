@@ -5,7 +5,7 @@ export const AUTH_LOGIN = 'AUTH_LOGIN'
 export const AUTH_ERROR = 'AUTH_ERROR'
 export const AUTH_FETCHING = 'AUTH_FETCHING'
 export const AUTH_LOGOUT = 'AUTH_LOGOUT'
-
+export const AUTH_SOCIAL_LOGIN = 'AUTH_LOGIN'
 
 export function authReceive(username,json){
     return {
@@ -13,6 +13,13 @@ export function authReceive(username,json){
         username,
         json
     }
+}
+
+export function authSocialLoginReceive(token){
+  return {
+    type:AUTH_SOCIAL_LOGIN,
+    token
+  }
 }
 
 export function authReceiveError(response){

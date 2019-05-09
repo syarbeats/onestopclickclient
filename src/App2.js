@@ -31,6 +31,9 @@ const Register = React.lazy(() => import('./views/Pages/Register'));
 const Page404 = React.lazy(() => import('./views/Pages/Page404'));
 const Page500 = React.lazy(() => import('./views/Pages/Page500'));
 const Home = React.lazy(() => import('./containers/home/Home'));
+const DirectPage = React.lazy(() => import('./containers/admin/OAuthRedirectHandler'));
+const Test = React.lazy(() => import('./containers/home/test'));
+
 
 class App2 extends Component {
 
@@ -43,6 +46,8 @@ class App2 extends Component {
           <React.Suspense fallback={loading()}>
             <Switch>
               <Route exact path="/" name="Home" render={props => <Home {...props}/>} />
+              <Route exact path='/oauth2/redirect' name="Redirect OAUth Page" render={props => <DirectPage {...props}/>} />
+              <Route exact path='/test' name="Redirect OAUth Page" render={() => <Test/>} />
               <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
               <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
