@@ -54,7 +54,7 @@ class TablesComponent extends Component {
   handleEditClick(id){
     
     //e.preventDefault()
-    this.props.history.push(`/adminpanel/category/edit/${id}`);
+    this.props.history.push(`/adminpanel/product/${this.state.productId}/review/edit/${id}`);
 
   }
   handleDeleteClick(id){
@@ -70,19 +70,21 @@ class TablesComponent extends Component {
       modal: !this.state.modal
     });
   }
-  handelConfirmDelete(e){
+  handelConfirmDelete(e,reviewId){
     const { dispatch} = this.props
     e.preventDefault()
+    
+    dispatch(product_action.removeReview(localStorage.getItem("token"),this.state.productId,this.state.idToDelete))
     this.setState({
       modal:false,
       idToDelete:0
     })
-    dispatch(product_action.delete(localStorage.getItem("token"),this.state.idToDelete))
   }
 
 
   render() {
     const {records} = this.props
+
     return (
       <div className="animated fadeIn">
         

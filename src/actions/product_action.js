@@ -54,12 +54,21 @@ function actionAddReviewReceive(json){
     }
 }
 
-function actionDeleteReviewReceive(json){
+function actionDeleteReviewReceive(json,reviewId){
     return {
         type:`PRODUCT_DELETE_REVIEW_RECEIVE`,
+        data:json,
+        id:reviewId
+    }
+}
+
+function actionOneReviewReceive(json){
+    return {
+        type:`PRODUCT_REVIEW_ONE_RECEIVE`,
         data:json
     }
 }
+
 
 class product_actionBase extends BaseAction{
     constructor(name,pathURLModule=null){
@@ -146,17 +155,29 @@ class product_actionBase extends BaseAction{
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
         const data = new FormData();
-        data.append("productReviewComment", review.productReviewComment);
-        data.append("productReviewRate", review.productReviewRate);
-        data.append("userId", 1);
+      //  data.append("productReviewComment", review.productReviewComment);
+       // data.append("productReviewRate", review.productReviewRate);
+       // data.append("userId", 1);
         return dispatch => {
     
-        //    return axios.post(`${API_URL}/api/v1/${this.pathURLModule}/${productId}/reviews`)
-        return axios({
-            method: 'post',
-            url: `${API_URL}/api/v1/${this.pathURLModule}/${productId}/reviews`,
-            data: data,
-          })
+            return axios.post(`${API_URL}/api/v1/${this.pathURLModule}/${productId}/reviews`,review)
+        // return axios({
+        //     method: 'post',
+        //     url: `${API_URL}/api/v1/${this.pathURLModule}/${productId}/reviews`,
+        //     data: data,
+        //   })
+            .then(response => response.data)
+            .then((json) =>dispatch(actionAddReviewReceive(json)))
+        }
+    }
+
+    editReview(token,productId,reviewId,review){
+        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+
+        return dispatch => {
+    
+            return axios.put(`${API_URL}/api/v1/${this.pathURLModule}/${productId}/reviews/${reviewId}`,review)
+   
             .then(response => response.data)
             .then((json) =>dispatch(actionAddReviewReceive(json)))
         }
@@ -175,7 +196,18 @@ class product_actionBase extends BaseAction{
     
             return axios.delete(`${API_URL}/api/v1/${this.pathURLModule}/${productId}/reviews/${reviewId}`)
             .then(response => response.data)
-            .then((json) =>dispatch(actionDeleteReviewReceive(json)))
+            .then((json) =>dispatch(actionDeleteReviewReceive(json,reviewId)))
+        }
+    }
+
+    readOneReview(token,id,reviewId){
+        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+ 
+        return dispatch => {
+    
+            return axios.get(`${API_URL}/api/v1/${this.pathURLModule}/${id}/reviews/${reviewId}`)
+            .then(response => response.data)
+            .then((json) =>dispatch(actionOneReviewReceive(json)))
         }
     }
 

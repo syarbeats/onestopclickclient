@@ -50,6 +50,22 @@ export default function productReducer(state={
             afterSaveReview:false
         }
     }
+    if(action.type==="PRODUCT_DELETE_REVIEW_RECEIVE"){
+ 
+        const newAr = state.reviews.filter(function(record){
+            return record.id != action.id
+        })
+        return {
+            ...state,
+            reviews:newAr
+        }
+    }
+    if(action.type==="PRODUCT_REVIEW_ONE_RECEIVE"){
+        return {
+            ...state,
+            review:action.data
+        }
+    }
     return actionSwitcher('PRODUCT',state,action)
 }
 

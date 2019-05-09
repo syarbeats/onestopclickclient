@@ -36,16 +36,23 @@ class FormsComponent extends Component {
      // formControls:Tools.generateFields(['categoryName','categoryDescription','parent']),
       productId:0,
       productReviewComment:'',
-      productReviewRate:''
+      productReviewRate:'',
+      reviewId:0
     };
   }
 
   componentDidMount(){
     const {match:{params},dispatch} = this.props
-    const {productId} = params;
+    const {productId,reviewId} = params;
     dispatch(product_action.addUpdateOffReview())
-    
-     dispatch(product_action.readOne(localStorage.getItem("token"),productId))
+    dispatch(product_action.readOne(localStorage.getItem("token"),productId))
+    if(reviewId > 0){
+      dispatch(product_action.readOneReview(localStorage.getItem("token"),productId,reviewId))
+      this.setState({
+        reviewId:reviewId
+      })
+    }
+   
     // dispatch(product_action.fetch(localStorage.getItem("token")))
     // dispatch(product_action.readOneAndFetchParent(localStorage.getItem("token"),id))
       this.setState({
@@ -84,26 +91,32 @@ class FormsComponent extends Component {
     event.preventDefault();
     const {dispatch} = this.props
     const {productId,productReviewComment,productReviewRate} = this.state
-    dispatch(product_action.addReview(localStorage.getItem("token"),productId,{
+    const reviewData = {
       productReviewComment:productReviewComment,
-      productReviewRate:productReviewRate
-    }))
+      productReviewRate:productReviewRate,
+      user:{
+        id:1
+      }
+    }
+    if(this.state.reviewId > 0){
+      dispatch(product_action.editReview(localStorage.getItem("token"),productId,this.state.reviewId,reviewData))
+    }else{
+      dispatch(product_action.addReview(localStorage.getItem("token"),productId,reviewData))
+    }
+   
   
 
   }
 
   componentWillReceiveProps(prevProps) {
-    let record = prevProps.record
-   
-    if(record){
-      let tempRecord = {}
-      let keys = Object.keys(record);
-      keys.map((key)=>{
-        tempRecord[key] = {value:record[key]}
-      })
+    let review = prevProps.review
+    console.log(prevProps)
+    if(review){
+      
 
       this.setState({
-        formControls:tempRecord
+        productReviewComment:review.productReviewComment,
+        productReviewRate:review.productReviewRate
       })
     }
     
@@ -113,11 +126,13 @@ class FormsComponent extends Component {
     const {successSave,dispatch,record,afterSaveReview} = this.props
     const {productId} = this.state
 
-    if(!record){
-      return (
-        <div>Please wait...</div>
-      )
-    }
+    const productName = record?record.name:''
+
+    // if(!record){
+    //   return (
+    //     <div>Please wait...</div>
+    //   )
+    // }
 
   
    
@@ -140,14 +155,14 @@ class FormsComponent extends Component {
               </CardHeader>
               <CardBody>
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal"  >
-                
+         
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Product Name</Label>
                     </Col>
                     <Col xs="12" md="9">
                   
-                      <p>{record.name}</p>
+                      <p>{productName}</p>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -209,7 +224,8 @@ function mapStateToProps(state){
   return {
     successSave:state.productReducer.successSave,
     record:state.productReducer.record,
-    afterSaveReview:state.productReducer.afterSaveReview
+    afterSaveReview:state.productReducer.afterSaveReview,
+    review:state.productReducer.review
     // parents:state.productReducer.records.filter((category)=>{
     //    console.log(category.id);
     //    console.log(state.productReducer.record.id)
