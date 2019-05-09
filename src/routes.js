@@ -39,9 +39,11 @@ const EventListForm = React.lazy(() => import('./containers/admin/event'));
 const HttpTraceListForm = React.lazy(() => import('./containers/admin/http_trace'));
 const TokenListForm = React.lazy(() => import('./containers/admin/token_list'));
 const ActivityListForm = React.lazy(() => import('./containers/admin/activity_list'));
-/*
-const OAuth2RedirectHandler = React.lazy(() => import('./containers/admin/OAuthRedirectHandler'));
-*/
+
+const PromotedproductTable = React.lazy(() => import('./containers/promotedproduct/Tables'));
+const PromotedproductForm = React.lazy(() => import('./containers/promotedproduct/Forms'));
+
+
 
 
 const routes = [
@@ -62,6 +64,8 @@ const routes = [
  { path: ADMIN_PATH+'/product/:id/categories', exact: true,  name: 'Manage Categories', component: CategoriesTable },
  { path: ADMIN_PATH+'/product/:id/images', exact: true,  name: 'Product Medias', component: ImagesTable },
  { path: ADMIN_PATH+'/product/:id/add-images', exact: true,  name: 'Add Product Media', component: ImagesForm },
+ { path: ADMIN_PATH+'/product/:id/review', exact: true,  name: 'Product Review', component: ProductReviewTable },
+ { path: ADMIN_PATH+'/product/:productId/review/add', exact: true,  name: 'Add Product Review', component: ProductReviewForm },
  { path: ADMIN_PATH+'/permission', exact: true,  name: 'Permissions', component: PermissionTable },
  { path: ADMIN_PATH+'/permission/add', exact: true,  name: 'Add Permission', component: PermissionForm },
  { path: ADMIN_PATH+'/permission/edit/:id', exact: true,  name: 'Edit Permission', component: PermissionForm },
@@ -81,9 +85,10 @@ const routes = [
   { path: ADMIN_PATH+'/admin/tokenList', exact: true,  name: 'Token List', component: TokenListForm },
   { path: ADMIN_PATH+'/admin/activityList/:id', exact: true,  name: 'Activity List', component: ActivityListForm },
 
-  { path: ADMIN_PATH+'/promoted-product', exact: true,  name: 'Products', component: ProductTable },
-  { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
-  /*{ path: '/oauth2/:responToken', exact: true,  name: 'OAuth2RedirectHandler', component: OAuth2RedirectHandler },*/
+   { path: ADMIN_PATH+'/promoted-product', exact: true,  name: 'Promote List', component: PromotedproductTable },
+   { path: ADMIN_PATH+'/promoted-product/add', exact: true,  name: 'New Promote', component: PromotedproductForm },
+   { path: ADMIN_PATH+'/promoted-product/edit/:id', exact: true,  name: 'Edit Promote', component: PromotedproductForm }
+  
 ];
 
 export default routes;

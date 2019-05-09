@@ -9,7 +9,9 @@ export default function productReducer(state={
     categories:[],
     categoriesByProduct:[],
     detailsMedia:[],
-    afterUploadMedia:false
+    afterUploadMedia:false,
+    reviews:[],
+    afterSaveReview:false
 },action){
     if(action.type==="PRODUCT_CATEGORIES_RECEIVE" || action.type==="PRODUCT_ADD_CATEGORIES_RECEIVE"
         || action.type==="PRODUCT_DELETE_CATEGORIES_RECEIVE"){
@@ -28,6 +30,24 @@ export default function productReducer(state={
         return {
             ...state,
             afterUploadMedia:true
+        }
+    }
+    if(action.type==="PRODUCT_REVIEW_RECEIVE"){
+        return {
+            ...state,
+            reviews:action.data
+        }
+    }
+    if(action.type==="PRODUCT_ADD_REVIEW_RECEIVE"){
+        return {
+            ...state,
+            afterSaveReview:true
+        }
+    }
+    if(action.type==="PRODUCT_ADD_REVIEW_OFF_RECEIVE"){
+        return {
+            ...state,
+            afterSaveReview:false
         }
     }
     return actionSwitcher('PRODUCT',state,action)
