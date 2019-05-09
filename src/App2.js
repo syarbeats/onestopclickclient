@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter,BrowserRouter, Route, Switch } from 'react-router-dom';
 import {Provider} from 'react-redux'
 // import { renderRoutes } from 'react-router-config';
 import './App.scss';
@@ -42,7 +42,7 @@ class App2 extends Component {
     return (
       <AlertProvider template={AlertTemplate} {...options}>
       <Provider store={store}>
-      <HashRouter>
+      <BrowserRouter>
           <React.Suspense fallback={loading()}>
             <Switch>
               <Route exact path="/" name="Home" render={props => <Home {...props}/>} />
@@ -58,7 +58,7 @@ class App2 extends Component {
                <PrivateRouteComponent name="Adminpanel" path="/adminpanel" component={props=><DefaultLayout {...props}/>} />} />
             </Switch>
           </React.Suspense>
-      </HashRouter>
+      </BrowserRouter>
       </Provider>
       </AlertProvider>
     );
