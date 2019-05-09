@@ -1,4 +1,4 @@
-import {AUTH_LOGIN,AUTH_ERROR,AUTH_FETCHING,AUTH_LOGOUT} from '../actions/auth_action'
+import {AUTH_LOGIN, AUTH_ERROR, AUTH_FETCHING, AUTH_LOGOUT, AUTH_SOCIAL_LOGIN} from '../actions/auth_action'
 
 
 export default function authModule(state={
@@ -36,6 +36,13 @@ export default function authModule(state={
                 signing:false,
                 errorLogin:false
             }
+      case AUTH_SOCIAL_LOGIN:
+        return {
+          ...state,
+          token:action.token,
+          signing:false,
+          errorLogin:false
+        }
         default:
             return state
     }

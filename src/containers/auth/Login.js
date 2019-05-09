@@ -6,7 +6,13 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+
+import fbLogo from '../../img/fb-logo.png';
+import googleLogo from '../../img/google-logo.png';
+import githubLogo from '../../img/github-logo.png';
+
+import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../../config/Config';
 
 import {
     Redirect
@@ -33,6 +39,22 @@ import { connect } from 'react-redux';
       marginBottom: 12,
     },
   };
+
+
+class SocialLogin extends Component {
+  render() {
+    return (
+      <div className="social-login">
+        <a className="btn btn-block social-btn google" href={GOOGLE_AUTH_URL}>
+          <img src={googleLogo} alt="Google" /> Log in with Google</a>
+        <a className="btn btn-block social-btn facebook" href={FACEBOOK_AUTH_URL}>
+          <img src={fbLogo} alt="Facebook" /> Log in with Facebook</a>
+        <a className="btn btn-block social-btn github" href={GITHUB_AUTH_URL}>
+          <img src={githubLogo} alt="Github" /> Log in with Github</a>
+      </div>
+    );
+  }
+}
 
 class LoginComponent extends Component {
     constructor(props){
@@ -90,39 +112,45 @@ class LoginComponent extends Component {
       }
   
       return (
-        
-        <Card className={classes.card}>
-        <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Login Form
-          </Typography>
-          <form>
-         
-        <TextField
-          id="standard-name"
-          label="Username"
-          type="text" 
+        <div>
+          <Card className={classes.card}>
+            <CardContent>
+              <SocialLogin/>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary" gutterBottom>
+                Login Form
+              </Typography>
+              <form>
+
+                <TextField
+                  id="standard-name"
+                  label="Username"
+                  type="text"
                   name="username"
-          value={this.state.formControls.username.value}
-          onChange={this.changeHandler}
-          margin="normal"
-        />
-         <TextField
-          id="standard-name"
-          label="Password"
-          type="password" 
+                  value={this.state.formControls.username.value}
+                  onChange={this.changeHandler}
+                  margin="normal"
+                />
+                <TextField
+                  id="standard-name"
+                  label="Password"
+                  type="password"
                   name="password"
-          value={this.state.formControls.password.value}
-          onChange={this.changeHandler}
-          margin="normal"
-        />
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.login}>
-        Login
-      </Button>
-          </form>
-        </CardContent>
-      
-      </Card>
+                  value={this.state.formControls.password.value}
+                  onChange={this.changeHandler}
+                  margin="normal"
+                />
+                <Button variant="contained" color="primary" className={classes.button} onClick={this.login}>
+                  LoginDD
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+
         
         // <div>
         //   <p>Login Form</p>
@@ -158,6 +186,9 @@ class LoginComponent extends Component {
   }
   
 
-  
+
   const Login = connect(mapStateToProps)(LoginComponent)
   export default withStyles(styles)(Login)
+
+
+

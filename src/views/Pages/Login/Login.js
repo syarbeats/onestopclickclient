@@ -1,9 +1,32 @@
 import React, { Component } from 'react';
+import './Login.css';
 import { Link,Redirect} from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { authLoginFetch } from '../../../actions/auth_action';
 import { connect } from 'react-redux';
 import {fakeAuth} from '../../../containers/PrivateRoute'
+
+import fbLogo from '../../../img/fb-logo.png';
+import googleLogo from '../../../img/google-logo.png';
+import githubLogo from '../../../img/github-logo.png';
+
+import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL } from '../../../config/Config';
+
+class SocialLogin extends Component {
+  render() {
+    return (
+      <div className="social-login">
+        <a className="btn btn-block social-btn google" href={GOOGLE_AUTH_URL}>
+          <img src={googleLogo} alt="Google" /> Log in with Google</a>
+        <a className="btn btn-block social-btn facebook" href={FACEBOOK_AUTH_URL}>
+          <img src={fbLogo} alt="Facebook" /> Log in with Facebook</a>
+        <a className="btn btn-block social-btn github" href={GITHUB_AUTH_URL}>
+          <img src={githubLogo} alt="Github" /> Log in with Github</a>
+      </div>
+    );
+  }
+}
+
 
 class LoginComponent extends Component {
   constructor(props){
@@ -65,6 +88,19 @@ class LoginComponent extends Component {
     return (
       <div className="app flex-row align-items-center">
         <Container>
+
+          <Row className="justify-content-center">
+            <Col md="8">
+              <CardGroup>
+                <Card className="p-4">
+                  <CardBody>
+                    <SocialLogin/>
+                  </CardBody>
+                </Card>
+              </CardGroup>
+            </Col>
+          </Row>
+
           <Row className="justify-content-center">
             <Col md="8">
             {errorLogin?(<div className="alert alert-danger" role="alert">Username or password is invalid.</div>):(<div></div>)}

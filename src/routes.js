@@ -1,5 +1,6 @@
 import React from 'react';
 import {ADMIN_PATH} from './config/Config'
+import OAuthRedirectHandler from "./containers/admin/OAuthRedirectHandler";
 
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 
