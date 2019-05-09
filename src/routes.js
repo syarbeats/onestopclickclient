@@ -39,8 +39,8 @@ const HttpTraceListForm = React.lazy(() => import('./containers/admin/http_trace
 const TokenListForm = React.lazy(() => import('./containers/admin/token_list'));
 const ActivityListForm = React.lazy(() => import('./containers/admin/activity_list'));
 
-const ProductReviewTable = React.lazy(() => import('./containers/productreview/Tables'));
-const ProductReviewForm = React.lazy(() => import('./containers/productreview/Forms'));
+const PromotedproductTable = React.lazy(() => import('./containers/promotedproduct/Tables'));
+const PromotedproductForm = React.lazy(() => import('./containers/promotedproduct/Forms'));
 
 
 
@@ -84,12 +84,9 @@ const routes = [
   { path: ADMIN_PATH+'/admin/tokenList', exact: true,  name: 'Token List', component: TokenListForm },
   { path: ADMIN_PATH+'/admin/activityList/:id', exact: true,  name: 'Activity List', component: ActivityListForm },
 
-  { path: ADMIN_PATH+'/promoted-product', exact: true,  name: 'Products', component: ProductTable },
-  { path: ADMIN_PATH+'/product/add', exact: true,  name: 'Add Product', component: ProductForm },
-
-  // { path: ADMIN_PATH+'/product-review', exact: true,  name: 'Review', component: ProductReviewTable },
-  // { path: ADMIN_PATH+'/product-review/add', exact: true,  name: 'Review', component: ProductReviewForm },
-  // { path: ADMIN_PATH+'/product-review/edit/:id', exact: true,  name: 'Review', component: ProductReviewForm },
+   { path: ADMIN_PATH+'/promoted-product', exact: true,  name: 'Promote List', component: PromotedproductTable },
+   { path: ADMIN_PATH+'/promoted-product/add', exact: true,  name: 'New Promote', component: PromotedproductForm },
+   { path: ADMIN_PATH+'/promoted-product/edit/:id', exact: true,  name: 'Edit Promote', component: PromotedproductForm }
   
 ];
 
