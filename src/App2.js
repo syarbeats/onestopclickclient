@@ -34,6 +34,9 @@ const Home = React.lazy(() => import('./containers/home/Home'));
 const DirectPage = React.lazy(() => import('./containers/admin/OAuthRedirectHandler'));
 const RegisterNewUser = React.lazy(() => import('./containers/user/RegisterNewUser'));
 const ForgotPassword = React.lazy(() => import('./containers/user/ForgotPassword'));
+const ShopHomePage = React.lazy(() => import('./containers/shop/HomePage'));
+const ProductDetailPage = React.lazy(() => import('./containers/shop/ProductDetailPage'));
+const CartPage = React.lazy(() => import('./containers/shop/CartPage'));
 
 class App2 extends Component {
 
@@ -46,6 +49,9 @@ class App2 extends Component {
           <React.Suspense fallback={loading()}>
             <Switch>
               <Route exact path="/" name="Home" render={props => <Home {...props}/>} />
+              <Route exact path="/shop" name="Shop" render={props => <ShopHomePage {...props}/>} />
+              <Route exact path="/product/:id" name="Product Detail" render={props => <ProductDetailPage {...props}/>} />
+              <Route exact path="/cart" name="Shop" render={props => <CartPage {...props}/>} />
               <Route exact path='/oauth2/redirect' name="Redirect OAUth Page" render={props => <DirectPage {...props}/>} />
               <Route exact path='/register' name="Register New User" render={() => <RegisterNewUser/>} />
               <Route exact path='/forgotPassword' name="Reset User Password" render={() => <ForgotPassword/>} />
