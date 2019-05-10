@@ -42,6 +42,10 @@ class HeaderMenu extends React.Component{
                                     <button type="button" className="btn btn-primary">Home</button><span className="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item">
+                                <a className="nav-link" href="/shop">
+                                    <button type="button" className="btn btn-warning">Shop</button></a>
+                            </li>
+                            <li className="nav-item">
                                 <a className="nav-link" href="/#/adminpanel/dashboard">
                                     <button type="button" className="btn btn-secondary">Admin Dashboard</button></a>
                             </li>

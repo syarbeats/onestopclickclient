@@ -13,9 +13,10 @@ import httpTraceReducer from './httptrace_reducer'
 import tokenReducer from './token_reducer'
 import activityReducer from './activity_reducer'
 import promotedproductReducer from './promotedproduct_reducer'
+import shopReducer from './shop_reducer'
 
 const AppReducer = combineReducers({auth_reducer,cart,userReducer,productReducer,
     permissionReducer,roleReducer,errorReducer,categoryReducer,subCategoryReducer, eventReducer, httpTraceReducer,
-    tokenReducer, activityReducer,promotedproductReducer});
+    tokenReducer, activityReducer,promotedproductReducer,shopReducer});
 export default AppReducer
 
