@@ -16,6 +16,13 @@ function actionShopProductOneReceive(json){
     }
 }
 
+function actionAddProduct(product){
+    return {
+        type:`SHOP_ADD_PRODUCT`,
+        product:product
+    }
+}
+
 
 class shopActionBase extends BaseAction{
     readProducts(token){
@@ -38,6 +45,10 @@ class shopActionBase extends BaseAction{
                .then(response => response.data)
                .then((json) =>dispatch(actionShopProductOneReceive(json)))
            }
+       }
+
+       addProduct(product){
+            return actionAddProduct(product);
        }
 }
 

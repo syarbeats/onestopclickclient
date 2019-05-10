@@ -21,6 +21,14 @@ import {connect} from 'react-redux'
 import shop_action from '../../actions/shop_action'
 import Header from './Header'
 import Footer from './Footer'
+import Cart from '../../helpers/Cart'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+const TAX_RATE = 0.07;
 
 const styles = theme => ({
   '@global': {
@@ -90,15 +98,45 @@ const styles = theme => ({
   },
   paperCart: {
     padding: theme.spacing.unit * 2,
-    height:200,
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  getProductButton:{
-    backgroundColor:'#5137ba',
-    color:'white'
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+  button:{
+    marginTop:20,
+    marginLeft:20,
+    textAlign:'right'
   }
 });
+
+function ccyFormat(num) {
+  return `${num.toFixed(2)}`;
+}
+
+function priceRow(qty, unit) {
+  return qty * unit;
+}
+
+function createRow(id, desc, qty, unit) {
+  const price = priceRow(qty, unit);
+  return { id, desc, qty, unit, price };
+}
+
+function subtotal(items) {
+  return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+}
+
+
+
+
+
 
 const footers = [
   {
@@ -110,18 +148,53 @@ const footers = [
 class CartPageContainer extends Component {
     constructor(props){
         super(props)
+        this.handlePageClick = this.handlePageClick.bind(this)
+        this.handleClearCart = this.handleClearCart.bind(this)
+        this.state = {
+          cart:{}
+        }
     }
  
     componentDidMount(){
-        const {match:{params},dispatch} = this.props;
-        const {id} = params
-        dispatch(shop_action.readProduct(localStorage.getItem("token"),id))
+        const {dispatch} = this.props;
+
+        this.setState({
+           cart:{
+             ...this.state.cart,
+             products:Cart.get()
+           }
+        })
+
 
     }
 
-    render(){
-        const { classes,product} = this.props;
+    handlePageClick(page){
+      this.props.history.push(page)
+    }
 
+    handleClearCart(){
+      Cart.clear()
+    }
+
+    render(){
+        const { classes} = this.props;
+        const products = this.state.cart.products
+
+        const preRows = [];
+
+        if(products){
+          products.map((product,id)=>{
+            preRows.push([product.name,product.quantity,product.price])
+          })
+        }
+        
+
+        const rows = preRows.map((row, id) => createRow(id, ...row));
+
+        const invoiceSubtotal = subtotal(rows);
+        const invoiceTaxes = TAX_RATE * invoiceSubtotal;
+        const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+       
         return (
             <React.Fragment>
               <CssBaseline />
@@ -132,7 +205,53 @@ class CartPageContainer extends Component {
               <Grid container spacing={24}>
         
         <Grid item xs={12}>
-          <Paper className={classes.paperCart}>Cart Here</Paper>
+          <Paper className={classes.paperCart}>
+          <Typography  align="left" variant="h4" color="textPrimary" gutterBottom>
+                Cart 
+          </Typography>
+          <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Desc</TableCell>
+            <TableCell align="right">Qty.</TableCell>
+            <TableCell align="right">@</TableCell>
+            <TableCell align="right">Price</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map(row => (
+            <TableRow key={row.id}>
+              <TableCell>{row.desc}</TableCell>
+              <TableCell align="right">{row.qty}</TableCell>
+              <TableCell align="right">{row.unit}</TableCell>
+              <TableCell align="right">{ccyFormat(row.price)}</TableCell>
+            </TableRow>
+          ))}
+          <TableRow>
+            <TableCell rowSpan={3} />
+            <TableCell colSpan={2}>Total</TableCell>
+            <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
+          </TableRow>
+        
+        </TableBody>
+      </Table>
+      <Button variant="contained"  className={classes.button} onClick={e=>this.handleClearCart()}
+                   >
+                   Clear
+                </Button>
+      <Button variant="contained" className={classes.button} onClick={e=>this.handlePageClick("/shop")}
+                   >
+                   Continue Shopping
+                </Button>
+
+                <Button variant="contained" color="primary" className={classes.button} onClick={e=>this.handlePageClick("/checkout")}
+                   >
+                   Checkout
+                </Button>
+
+            
+
+          </Paper>
         </Grid>
         
       

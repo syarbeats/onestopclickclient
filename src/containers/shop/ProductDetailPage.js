@@ -21,6 +21,7 @@ import {connect} from 'react-redux'
 import shop_action from '../../actions/shop_action'
 import Header from './Header'
 import Footer from './Footer'
+import Cart from '../../helpers/Cart'
 
 const styles = theme => ({
   '@global': {
@@ -120,7 +121,11 @@ class ProductDetailPageContainer extends Component {
 
     }
 
-    handleGetProductClick(productId){
+    handleGetProductClick(product){
+     
+
+      Cart.add(product);
+
       this.props.history.push("/cart");
     }
 
@@ -151,7 +156,7 @@ class ProductDetailPageContainer extends Component {
                   {product.description}
                   </Typography>
                   <Button variant="contained" color="primary" className={classes.button}
-                   onClick={e=>this.handleGetProductClick(product.id)}>
+                   onClick={e=>this.handleGetProductClick(product)}>
                     Get Product
                 </Button>
           </Paper>

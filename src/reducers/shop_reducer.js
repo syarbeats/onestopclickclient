@@ -21,6 +21,13 @@ export default function shopReducer(state={
         }
     }
 
+    if(action.type==="SHOP_PRODUCT_RECEIVE"){
+        return {
+            ...state,
+            product:action.product
+        }
+    }
+
     
     return actionSwitcher('CATEGORY',state,action)
 }
