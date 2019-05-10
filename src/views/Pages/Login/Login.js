@@ -133,7 +133,9 @@ class LoginComponent extends Component {
                           <Button color="primary" className="px-4" onClick={this.login}>Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0">Forgot password?</Button>
+                          <Link to="/forgotPassword">
+                            <Button color="link" className="px-0">Forgot password?</Button>
+                          </Link>
                         </Col>
                       </Row>
                     </Form>

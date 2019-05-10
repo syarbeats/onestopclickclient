@@ -67,9 +67,11 @@ const routes = [
  { path: ADMIN_PATH+'/product/:id/categories', exact: true,  name: 'Manage Categories', component: CategoriesTable },
  { path: ADMIN_PATH+'/product/:id/images', exact: true,  name: 'Product Medias', component: ImagesTable },
  { path: ADMIN_PATH+'/product/:id/add-images', exact: true,  name: 'Add Product Media', component: ImagesForm },
+
  { path: ADMIN_PATH+'/product/:id/review', exact: true,  name: 'Product Review', component: ProductReviewTable },
  { path: ADMIN_PATH+'/product/:productId/review/add', exact: true,  name: 'Add Product Review', component: ProductReviewForm },
  { path: ADMIN_PATH+'/product/:productId/review/edit/:reviewId', exact: true,  name: 'Edit Product Review', component: ProductReviewForm },
+
  { path: ADMIN_PATH+'/permission', exact: true,  name: 'Permissions', component: PermissionTable },
  { path: ADMIN_PATH+'/permission/add', exact: true,  name: 'Add Permission', component: PermissionForm },
  { path: ADMIN_PATH+'/permission/edit/:id', exact: true,  name: 'Edit Permission', component: PermissionForm },
