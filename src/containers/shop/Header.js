@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import {connect} from 'react-redux'
 import { withRouter} from 'react-router-dom';
+import { authLogout } from '../../actions/auth_action';
+import {fakeAuth} from '../../containers/UserRoute'
 
 
 const styles = theme => ({
@@ -29,7 +31,19 @@ class HeaderContainer extends Component{
     constructor(props){
         super(props)
       //  this.hello = this.hello.bind(this);
+        this.state={
+          userName:''
+        }
        
+    }
+
+    componentDidMount(){
+        const token = localStorage.getItem("token");
+        if(token){
+           this.setState({
+             userName:'Tamara'
+           })
+        }
     }
 
    
@@ -37,9 +51,20 @@ class HeaderContainer extends Component{
       this.props.history.push(page)
     }
 
+    signOut(e) {
+      e.preventDefault()
+      const {dispatch} = this.props
+      localStorage.setItem("token","")
+      fakeAuth.isAuthenticated = false
+      dispatch(authLogout())
+      this.props.history.push('/login')
+    }
+
  
     render(){
         const { classes,toHomeLink} = this.props;
+        const userName = this.state.userName
+        const loggedIn = userName.length > 1?true:false
         return (
             <div>
                  <AppBar position="static" color="default" className={classes.appBar}>
@@ -54,9 +79,20 @@ class HeaderContainer extends Component{
                   <Button className={classes.buttonTitle} onClick={e=>this.handlePageClick("/search")}>Search</Button>
                   <Button className={classes.buttonTitle} onClick={e=>this.handlePageClick("/shop")}>Categories</Button>
                   <Button className={classes.buttonTitle} onClick={e=>this.handlePageClick("/cart")}>Cart ( 0.00 )</Button>
-                  <Button color="primary" className={classes.buttonTitle} variant="outlined">
+                  { loggedIn? (
+                
+                     <Button color="primary" className={classes.buttonTitle} onClick={e=>this.signOut(e)} variant="outlined">
+                     Hello, {userName} Logout
+                   </Button>
+ 
+                  
+                  ):(
+                    <Button color="primary" className={classes.buttonTitle} onClick={e=>this.handlePageClick("/login")} variant="outlined">
                     Login
                   </Button>
+                  )
+                  }
+                 
                 </Toolbar>
               </AppBar>
             </div>
