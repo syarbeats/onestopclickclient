@@ -28,6 +28,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import PayPal from './PayPal'
 
 const styles = theme => ({
   '@global': {
@@ -128,8 +129,8 @@ class CheckoutPageContainer extends Component {
  
     componentDidMount(){
         const {match:{params},dispatch} = this.props;
-        const {id} = params
-        dispatch(shop_action.readProduct(localStorage.getItem("token"),id))
+       // const {id} = params
+      //  dispatch(shop_action.readProduct(localStorage.getItem("token"),id))
 
     }
 
@@ -182,12 +183,7 @@ class CheckoutPageContainer extends Component {
             </Typography>
           </ExpansionPanelDetails>
           <Divider />
-        <ExpansionPanelActions>
-          
-          <Button size="small" color="primary">
-            USE THIS PAYMENT METHOD
-          </Button>
-        </ExpansionPanelActions>
+      
         </ExpansionPanel>
         <ExpansionPanel
           square
@@ -198,19 +194,10 @@ class CheckoutPageContainer extends Component {
             <Typography>PayPal</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
-              ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
-            </Typography>
+            <PayPal />
           </ExpansionPanelDetails>
           <Divider />
-        <ExpansionPanelActions>
-          
-          <Button size="small" color="primary">
-            USE THIS PAYMENT METHOD
-          </Button>
-        </ExpansionPanelActions>
+    
         </ExpansionPanel>
        
           
