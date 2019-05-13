@@ -6,6 +6,7 @@ import './App.scss';
 import {PrivateRouteComponent,AuthButton} from './containers/PrivateRoute';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import {UserRouteComponent} from './containers/UserRoute';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -37,6 +38,7 @@ const ForgotPassword = React.lazy(() => import('./containers/user/ForgotPassword
 const ShopHomePage = React.lazy(() => import('./containers/shop/HomePage'));
 const ProductDetailPage = React.lazy(() => import('./containers/shop/ProductDetailPage'));
 const CartPage = React.lazy(() => import('./containers/shop/CartPage'));
+const CheckoutPage = React.lazy(() => import('./containers/shop/payment/CheckoutPage'));
 
 class App2 extends Component {
 
@@ -63,6 +65,7 @@ class App2 extends Component {
               {/* <Route path="/adminpanel" name="Home" render={props => <DefaultLayout {...props}/>} /> */}
                {/* <PrivateRouteComponent name="Adminpanel" path="/adminpanel" render={props => <DefaultLayout {...props}/>} /> */}
                <PrivateRouteComponent name="Adminpanel" path="/adminpanel" component={props=><DefaultLayout {...props}/>} />} />
+               <UserRouteComponent name="UserPages" path="/checkout" component={props=><CheckoutPage {...props}/>} />} />
             </Switch>
           </React.Suspense>
       </BrowserRouter>
