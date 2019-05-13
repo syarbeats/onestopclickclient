@@ -46,7 +46,7 @@ class HeaderMenu extends React.Component{
                                     <button type="button" className="btn btn-warning">Shop</button></a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/#/adminpanel/dashboard">
+                                <a className="nav-link" href="/adminpanel/dashboard">
                                     <button type="button" className="btn btn-secondary">Admin Dashboard</button></a>
                             </li>
                             <li className="nav-item">

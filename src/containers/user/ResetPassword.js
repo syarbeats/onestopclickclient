@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import {resetPassword} from '../../actions/reset_password_action'
 import { Redirect} from 'react-router-dom';
 import {userSaveOff} from "../../actions/user_action";
+import {authSocialLoginReceive} from "../../actions/auth_action";
 
 
 class ForgotPassword extends Component {
@@ -31,13 +32,17 @@ class ForgotPassword extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      formControls:Tools.generateFields(['email'])
+      formControls:Tools.generateFields(['username', 'password'])
     };
   }
 
-  componentDidMount(){
+  getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
 
-  }
+    let results = regex.exec(this.props.location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  };
 
   toggle() {
     this.setState({ collapse: !this.state.collapse });
@@ -53,7 +58,7 @@ class ForgotPassword extends Component {
   }
 
   handleSubmit(event) {
-    console.log("submit reset password request for email:"+this.state.formControls.email.value)
+    console.log("submit new password for username:"+this.state.formControls.username.value)
     const {dispatch} = this.props
     dispatch(resetPassword(this.state.formControls.email.value))
     console.log("After submit reset password request..")
@@ -62,11 +67,20 @@ class ForgotPassword extends Component {
 
 
   render() {
+
+    console.log("GET TOKEN : "+this.getUrlParameter('token'));
+    const token = this.getUrlParameter('token');
+    const error = this.getUrlParameter('error');
+
+    if(token) {
+      localStorage.setItem("token", token);
+    }
+
     const {successSubmit,dispatch} = this.props
 
     if (successSubmit === true) {
       dispatch(userSaveOff())
-      return <Redirect to="/checkemail" />
+      return <Redirect to="/login" />
     }
 
     return (
@@ -77,16 +91,24 @@ class ForgotPassword extends Component {
             <Col md="9" lg="7" xl="6">
               <Card className="mx-4">
                 <CardHeader>
-                  <label><b>Please insert your email to reset your password!!!</b></label>
+                  <label><b>Please insert your new password!!!</b></label>
                 </CardHeader>
                 <CardBody className="p-4">
                   <Form action="" method="post" encType="multipart/form-data" className="form-horizontal"  >
                     <FormGroup row>
                       <Col md="3">
-                        <Label htmlFor="email-input">Email </Label>
+                        <Label htmlFor="username-input">Username </Label>
                       </Col>
                       <Col xs="12" md="9">
-                        <Input type="email" id="email-input" name="email" placeholder="Enter Email" autoComplete="email" onChange={this.handleChange}  value={this.state.formControls.email.value} />
+                        <Input type="username" id="username-input" name="username" placeholder="Enter username" autoComplete="username" onChange={this.handleChange}  value={this.state.formControls.username.value} />
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col md="3">
+                        <Label htmlFor="password-input">password </Label>
+                      </Col>
+                      <Col xs="12" md="9">
+                        <Input type="password" id="password-input" name="password" placeholder="Enter password" autoComplete="password" onChange={this.handleChange}  value={this.state.formControls.password.value} />
                       </Col>
                     </FormGroup>
                   </Form>

@@ -13,13 +13,15 @@ export function actionSwitcher(name,state,action){
         return {
             ...state,
             affectedRecord:action.data,
-            successSave:true
+            successSave:true,
+            successSubmit: true
         }
     }else if(action.type===`${name}_SAVE_OFF`){
         return {
             ...state,
             affectedRecord:null,
-            successSave:false
+            successSave:false,
+            successSubmit: false
         }
     }else if(action.type===`${name}_READONE_RECEIVE`){
         return {
@@ -164,6 +166,13 @@ function actionActivityReceive(name,json){
   }
 }
 
+function actionSubmitResetReceive(name,json){
+  return {
+    type:`${name}_RECEIVE`,
+    data:json
+  }
+}
+
 export function CRUDOffSave(name){
     return actionOffSave(name)
 }
@@ -196,7 +205,7 @@ export function CRUDSave(token,params,pathUrl,name) {
 
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
     const bodyFormdata = new FormData()
-    const keys = Object.keys(params)    
+    const keys = Object.keys(params)
     keys.map((key)=>{
         bodyFormdata.set(key,params[key])
     })
@@ -362,6 +371,26 @@ export function GetActivityList(token,pathUrl,name) {
       .then(response => response.data)
       .then((json) =>dispatch(actionActivityReceive(name,json)))
       .catch( (error) => dispatch(actionReceiveResp500(name,error.response)) )
+  }
+
+}
+
+export function submitResetPasswordRequest(email,pathUrl,name) {
+
+  console.log("Invoke reset password services with email:"+email)
+
+  let formData = new FormData();
+  formData.append('email', email);
+  console.log("URL"+ `${API_URL}${pathUrl}`);
+
+  return dispatch => {
+    return axios.post(`${API_URL}${pathUrl}`,formData)
+      .then(response => response.data)
+      .then((json) => {
+        console.log("Response: "+JSON.stringify(json))
+        dispatch(actionSaveReceive(name,json))
+      })
+        .catch( (error) => dispatch(actionReceiveResp500(name,error.response)))
   }
 
 }

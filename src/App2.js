@@ -37,6 +37,8 @@ const ForgotPassword = React.lazy(() => import('./containers/user/ForgotPassword
 const ShopHomePage = React.lazy(() => import('./containers/shop/HomePage'));
 const ProductDetailPage = React.lazy(() => import('./containers/shop/ProductDetailPage'));
 const CartPage = React.lazy(() => import('./containers/shop/CartPage'));
+const CheckEmail = React.lazy(() => import('./containers/user/CheckEmail'));
+const ResetPassword = React.lazy(() => import('./containers/user/ResetPassword'));
 
 class App2 extends Component {
 
@@ -49,6 +51,8 @@ class App2 extends Component {
           <React.Suspense fallback={loading()}>
             <Switch>
               <Route exact path="/" name="Home" render={props => <Home {...props}/>} />
+              <Route exact path="/reset" name="Reset Password" render={props => <ResetPassword {...props}/>} />
+              <Route exact path="/checkemail" name="Check Email" render={props => <CheckEmail {...props}/>} />
               <Route exact path="/shop" name="Shop" render={props => <ShopHomePage {...props}/>} />
               <Route exact path="/product/:id" name="Product Detail" render={props => <ProductDetailPage {...props}/>} />
               <Route exact path="/cart" name="Shop" render={props => <CartPage {...props}/>} />
