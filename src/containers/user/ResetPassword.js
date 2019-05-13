@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import Tools from '../../helpers/Tools'
 import { connect } from 'react-redux';
-import {resetPassword} from '../../actions/reset_password_action'
+import {submitNewPassword} from '../../actions/reset_password_action'
 import { Redirect} from 'react-router-dom';
 import {userSaveOff} from "../../actions/user_action";
 import {authSocialLoginReceive} from "../../actions/auth_action";
@@ -60,9 +60,18 @@ class ForgotPassword extends Component {
   handleSubmit(event) {
     console.log("submit new password for username:"+this.state.formControls.username.value)
     const {dispatch} = this.props
-    dispatch(resetPassword(this.state.formControls.email.value))
+    dispatch(submitNewPassword(localStorage.getItem("token"),this.state.formControls.username.value,this.state.formControls.password.value))
     console.log("After submit reset password request..")
     event.preventDefault();
+  }
+
+  componentDidMount() {
+    console.log("Username:"+this.getUrlParameter('username'));
+    this.setState({
+      formControls:{
+        username:{value:this.getUrlParameter('username')},
+      }
+    })
   }
 
 
@@ -71,6 +80,8 @@ class ForgotPassword extends Component {
     console.log("GET TOKEN : "+this.getUrlParameter('token'));
     const token = this.getUrlParameter('token');
     const error = this.getUrlParameter('error');
+    const username = this.getUrlParameter('username');
+    console.log("GET USERNAME : "+this.getUrlParameter('username'));
 
     if(token) {
       localStorage.setItem("token", token);
@@ -108,7 +119,7 @@ class ForgotPassword extends Component {
                         <Label htmlFor="password-input">password </Label>
                       </Col>
                       <Col xs="12" md="9">
-                        <Input type="password" id="password-input" name="password" placeholder="Enter password" autoComplete="password" onChange={this.handleChange}  value={this.state.formControls.password.value} />
+                        <Input type="password" id="password-input" name="password" placeholder="Enter password" autoComplete="password" onChange={this.handleChange} />
                       </Col>
                     </FormGroup>
                   </Form>

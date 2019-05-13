@@ -392,5 +392,24 @@ export function submitResetPasswordRequest(email,pathUrl,name) {
       })
         .catch( (error) => dispatch(actionReceiveResp500(name,error.response)))
   }
+}
 
+export function submitNewPasswordRequest(token, username, password,pathUrl,name) {
+  axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+  console.log("submit new password services with username:"+username+ " Password:"+password);
+
+  let formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password);
+  console.log("URL"+ `${API_URL}${pathUrl}`);
+
+  return dispatch => {
+    return axios.post(`${API_URL}${pathUrl}`,formData)
+      .then(response => response.data)
+      .then((json) => {
+        console.log("Response: "+JSON.stringify(json))
+        dispatch(actionSaveReceive(name,json))
+      })
+      .catch( (error) => dispatch(actionReceiveResp500(name,error.response)))
+  }
 }
